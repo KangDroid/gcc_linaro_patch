@@ -1,0 +1,27 @@
+commit 7d0faaac879274499a548be3788b74c3883d8682
+Author: Andrew Hsieh <andrewhsieh@google.com>
+Date:   Tue Oct 9 13:03:23 2012 +0800
+
+    [4.7] Define USE_PT_GNU_EH_FRAME
+    
+    See related CL: 1b319a8d2eab9b0a8861db78f90959ff3db175eb for
+    GCC 4.6
+    
+    Change-Id: I07de15b9465b2bed7d059d069b14558d179621b3
+
+diff --git a/gcc-4.7/libgcc/unwind-dw2-fde-dip.c b/gcc-4.7/libgcc/unwind-dw2-fde-dip.c
+index f57dc8c..92f8ab5 100644
+--- a/gcc-4.7/libgcc/unwind-dw2-fde-dip.c
++++ b/gcc-4.7/libgcc/unwind-dw2-fde-dip.c
+@@ -54,6 +54,11 @@
+ #endif
+ 
+ #if !defined(inhibit_libc) && defined(HAVE_LD_EH_FRAME_HDR) \
++    && defined(__BIONIC__)
++# define USE_PT_GNU_EH_FRAME
++#endif
++
++#if !defined(inhibit_libc) && defined(HAVE_LD_EH_FRAME_HDR) \
+     && defined(__FreeBSD__) && __FreeBSD__ >= 7
+ # define ElfW __ElfN
+ # define USE_PT_GNU_EH_FRAME
