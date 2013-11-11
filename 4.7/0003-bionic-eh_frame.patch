@@ -9,10 +9,10 @@ Date:   Tue Oct 9 13:03:23 2012 +0800
     
     Change-Id: I07de15b9465b2bed7d059d069b14558d179621b3
 
-diff --git a/gcc-4.7/libgcc/unwind-dw2-fde-dip.c b/gcc-4.7/libgcc/unwind-dw2-fde-dip.c
+diff --git gcc-4.7/libgcc/unwind-dw2-fde-dip.c gcc-4.7/libgcc/unwind-dw2-fde-dip.c
 index f57dc8c..92f8ab5 100644
---- a/gcc-4.7/libgcc/unwind-dw2-fde-dip.c
-+++ b/gcc-4.7/libgcc/unwind-dw2-fde-dip.c
+--- gcc-4.7/libgcc/unwind-dw2-fde-dip.c
++++ gcc-4.7/libgcc/unwind-dw2-fde-dip.c
 @@ -54,6 +54,11 @@
  #endif
  

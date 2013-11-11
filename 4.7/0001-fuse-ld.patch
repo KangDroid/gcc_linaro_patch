@@ -35,10 +35,10 @@ Date:   Tue Oct 9 18:53:36 2012 +0800
     
     Change-Id: I659dd3f53b8ee23667fec0d7d77efc90155cdf43
 
-diff --git a/gcc-4.7/gcc/collect2.c b/gcc-4.7/gcc/collect2.c
+diff --git gcc-4.7/gcc/collect2.c gcc-4.7/gcc/collect2.c
 index a44b2e7..7429309 100644
---- a/gcc-4.7/gcc/collect2.c
-+++ b/gcc-4.7/gcc/collect2.c
+--- gcc-4.7/gcc/collect2.c
++++ gcc-4.7/gcc/collect2.c
 @@ -1021,6 +1021,8 @@ int
  main (int argc, char **argv)
  {
@@ -206,10 +206,10 @@ index a44b2e7..7429309 100644
  
  #ifdef REAL_NM_FILE_NAME
    nm_file_name = find_a_file (&path, REAL_NM_FILE_NAME);
-diff --git a/gcc-4.7/gcc/common.opt b/gcc-4.7/gcc/common.opt
+diff --git gcc-4.7/gcc/common.opt gcc-4.7/gcc/common.opt
 index 033fbe0..ba1cf5b 100644
---- a/gcc-4.7/gcc/common.opt
-+++ b/gcc-4.7/gcc/common.opt
+--- gcc-4.7/gcc/common.opt
++++ gcc-4.7/gcc/common.opt
 @@ -2086,6 +2086,9 @@ funwind-tables
  Common Report Var(flag_unwind_tables) Optimization
  Just generate unwind tables for exception handling
@@ -220,10 +220,10 @@ index 033fbe0..ba1cf5b 100644
  fuse-linker-plugin
  Common Undocumented
  
-diff --git a/gcc-4.7/gcc/configure b/gcc-4.7/gcc/configure
+diff --git gcc-4.7/gcc/configure gcc-4.7/gcc/configure
 index 52cc6b6..593e816 100755
---- a/gcc-4.7/gcc/configure
-+++ b/gcc-4.7/gcc/configure
+--- gcc-4.7/gcc/configure
++++ gcc-4.7/gcc/configure
 @@ -681,6 +681,7 @@ gcc_cv_readelf
  gcc_cv_objdump
  ORIGINAL_NM_FOR_TARGET
@@ -264,10 +264,10 @@ index 52cc6b6..593e816 100755
  { $as_echo "$as_me:${as_lineno-$LINENO}: checking what linker to use" >&5
  $as_echo_n "checking what linker to use... " >&6; }
  if test "$gcc_cv_ld" = ../ld/ld-new$build_exeext \
-diff --git a/gcc-4.7/gcc/configure.ac b/gcc-4.7/gcc/configure.ac
+diff --git gcc-4.7/gcc/configure.ac gcc-4.7/gcc/configure.ac
 index 2d1876f..0d23c5e 100644
---- a/gcc-4.7/gcc/configure.ac
-+++ b/gcc-4.7/gcc/configure.ac
+--- gcc-4.7/gcc/configure.ac
++++ gcc-4.7/gcc/configure.ac
 @@ -2024,6 +2024,17 @@ else
          AC_PATH_PROG(gcc_cv_ld, $LD_FOR_TARGET)
  fi])
@@ -296,10 +296,10 @@ index 2d1876f..0d23c5e 100644
  AC_MSG_CHECKING(what linker to use)
  if test "$gcc_cv_ld" = ../ld/ld-new$build_exeext \
     || test "$gcc_cv_ld" = ../gold/ld-new$build_exeext; then
-diff --git a/gcc-4.7/gcc/doc/invoke.texi b/gcc-4.7/gcc/doc/invoke.texi
+diff --git gcc-4.7/gcc/doc/invoke.texi gcc-4.7/gcc/doc/invoke.texi
 index 8fcebf3..506264b 100644
---- a/gcc-4.7/gcc/doc/invoke.texi
-+++ b/gcc-4.7/gcc/doc/invoke.texi
+--- gcc-4.7/gcc/doc/invoke.texi
++++ gcc-4.7/gcc/doc/invoke.texi
 @@ -415,7 +415,7 @@ Objective-C and Objective-C++ Dialects}.
  -funit-at-a-time -funroll-all-loops -funroll-loops @gol
  -funsafe-loop-optimizations -funsafe-math-optimizations -funswitch-loops @gol
@@ -326,10 +326,10 @@ index 8fcebf3..506264b 100644
  @item -fcprop-registers
  @opindex fcprop-registers
  After register allocation and post-register allocation instruction splitting,
-diff --git a/gcc-4.7/gcc/exec-tool.in b/gcc-4.7/gcc/exec-tool.in
+diff --git gcc-4.7/gcc/exec-tool.in gcc-4.7/gcc/exec-tool.in
 index 8a10775..f19a251 100644
---- a/gcc-4.7/gcc/exec-tool.in
-+++ b/gcc-4.7/gcc/exec-tool.in
+--- gcc-4.7/gcc/exec-tool.in
++++ gcc-4.7/gcc/exec-tool.in
 @@ -21,11 +21,13 @@
  
  ORIGINAL_AS_FOR_TARGET="@ORIGINAL_AS_FOR_TARGET@"
@@ -476,10 +476,10 @@ index 8a10775..f19a251 100644
 +  echo "$invoked: unable to locate executable: $original"
 +  exit 1
 +fi
-diff --git a/gcc-4.7/gcc/gcc.c b/gcc-4.7/gcc/gcc.c
+diff --git gcc-4.7/gcc/gcc.c gcc-4.7/gcc/gcc.c
 index cc6a08e..c07041d 100644
---- a/gcc-4.7/gcc/gcc.c
-+++ b/gcc-4.7/gcc/gcc.c
+--- gcc-4.7/gcc/gcc.c
++++ gcc-4.7/gcc/gcc.c
 @@ -671,6 +671,9 @@ proper position among the other output files.  */
      LINK_PLUGIN_SPEC \
      "%{flto|flto=*:%<fcompare-debug*} \
@@ -490,10 +490,10 @@ index cc6a08e..c07041d 100644
     "%X %{o*} %{e*} %{N} %{n} %{r}\
      %{s} %{t} %{u*} %{z} %{Z} %{!nostdlib:%{!nostartfiles:%S}}\
      %{static:} %{L*} %(mfwrap) %(link_libgcc) %o\
-diff --git a/gcc-4.7/gcc/opts.c b/gcc-4.7/gcc/opts.c
+diff --git gcc-4.7/gcc/opts.c gcc-4.7/gcc/opts.c
 index 6532b56..f46ff76 100644
---- a/gcc-4.7/gcc/opts.c
-+++ b/gcc-4.7/gcc/opts.c
+--- gcc-4.7/gcc/opts.c
++++ gcc-4.7/gcc/opts.c
 @@ -1735,6 +1735,7 @@ common_handle_option (struct gcc_options *opts,
        dc->max_errors = value;
        break;

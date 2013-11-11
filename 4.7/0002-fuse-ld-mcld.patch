@@ -8,10 +8,10 @@ Date:   Thu Feb 21 15:51:55 2013 +0800
     
     Change-Id: Ic9d88a86298eddaccf3c7da8405efb2b2f0d3e70
 
-diff --git a/gcc-4.7/gcc/collect2.c b/gcc-4.7/gcc/collect2.c
+diff --git gcc-4.7/gcc/collect2.c gcc-4.7/gcc/collect2.c
 index 7429309..ce3ad0b 100644
---- a/gcc-4.7/gcc/collect2.c
-+++ b/gcc-4.7/gcc/collect2.c
+--- gcc-4.7/gcc/collect2.c
++++ gcc-4.7/gcc/collect2.c
 @@ -1022,6 +1022,7 @@ main (int argc, char **argv)
  {
    static const char *const ld_suffix	= "ld";
@@ -90,10 +90,10 @@ index 7429309..ce3ad0b 100644
        case BFD_LINKER:     s = full_bfd_ld_suffix; break;
        }
        notice ("  %s\n", s);
-diff --git a/gcc-4.7/gcc/doc/invoke.texi b/gcc-4.7/gcc/doc/invoke.texi
+diff --git gcc-4.7/gcc/doc/invoke.texi gcc-4.7/gcc/doc/invoke.texi
 index 135cc29..429e62b 100644
---- a/gcc-4.7/gcc/doc/invoke.texi
-+++ b/gcc-4.7/gcc/doc/invoke.texi
+--- gcc-4.7/gcc/doc/invoke.texi
++++ gcc-4.7/gcc/doc/invoke.texi
 @@ -8044,6 +8044,9 @@ Use the @command{gold} linker instead of the default linker.
  This option is only necessary if GCC has been configured with
  @option{--enable-gold} and @option{--enable-ld=default}.
@@ -104,10 +104,10 @@ index 135cc29..429e62b 100644
  @item -fuse-ld=bfd
  Use the @command{ld.bfd} linker instead of the default linker.
  This option is only necessary if GCC has been configured with
-diff --git a/gcc-4.7/gcc/gcc.c b/gcc-4.7/gcc/gcc.c
+diff --git gcc-4.7/gcc/gcc.c gcc-4.7/gcc/gcc.c
 index c07041d..6bcf12e 100644
---- a/gcc-4.7/gcc/gcc.c
-+++ b/gcc-4.7/gcc/gcc.c
+--- gcc-4.7/gcc/gcc.c
++++ gcc-4.7/gcc/gcc.c
 @@ -672,7 +672,10 @@ proper position among the other output files.  */
      "%{flto|flto=*:%<fcompare-debug*} \
      %{flto} %{flto=*} %l " LINK_PIE_SPEC \

@@ -12,10 +12,10 @@ Date:   Wed Apr 3 14:09:57 2013 +0800
     
     Change-Id: I7b65edfb76841f14c3290acb5a98f556d00e1139
 
-diff --git a/gcc-4.7/gcc/config/i386/i386-opts.h b/gcc-4.7/gcc/config/i386/i386-opts.h
+diff --git gcc-4.7/gcc/config/i386/i386-opts.h gcc-4.7/gcc/config/i386/i386-opts.h
 index 8904491..4f92987 100644
---- a/gcc-4.7/gcc/config/i386/i386-opts.h
-+++ b/gcc-4.7/gcc/config/i386/i386-opts.h
+--- gcc-4.7/gcc/config/i386/i386-opts.h
++++ gcc-4.7/gcc/config/i386/i386-opts.h
 @@ -84,7 +84,7 @@ enum ix86_veclibabi {
  
  enum stack_protector_guard {
