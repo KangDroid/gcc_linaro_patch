@@ -103,16 +103,3 @@
  fi
  rm -f core conftest.err conftest.$ac_objext \
      conftest$ac_exeext conftest.$ac_ext
---- gcc-linaro-4.8-2013.12/libgomp/env.c.omp~	2014-01-04 12:45:10.653903173 +0100
-+++ gcc-linaro-4.8-2013.12/libgomp/env.c	2014-01-04 13:06:29.637253291 +0100
-@@ -42,9 +42,9 @@
- # endif
- #endif
- #include <sys/mman.h>
--#include <sys/mman.h>
- #include <limits.h>
- #include <errno.h>
-+#include <asm/page.h>
- 
- #ifndef HAVE_STRTOULL
- # define strtoull(ptr, eptr, base) strtoul (ptr, eptr, base)
