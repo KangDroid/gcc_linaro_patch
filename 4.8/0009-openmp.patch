@@ -1,5 +1,5 @@
---- gcc-linaro-4.8-2013.12/gcc/config/linux-android.h.p9~	2013-01-10 21:38:27.000000000 +0100
-+++ gcc-linaro-4.8-2013.12/gcc/config/linux-android.h	2014-01-03 22:08:35.153212932 +0100
+--- gcc-linaro-4.8-2013.12/gcc/config/linux-android.h.omp~	2013-01-10 21:38:27.000000000 +0100
++++ gcc-linaro-4.8-2013.12/gcc/config/linux-android.h	2014-01-04 13:04:39.213918514 +0100
 @@ -49,7 +49,8 @@
    "%{!frtti:%{!fno-rtti: -fno-rtti}}"
  
@@ -10,8 +10,8 @@
  
  #define ANDROID_STARTFILE_SPEC						\
    "%{shared: crtbegin_so%O%s;:"						\
---- gcc-linaro-4.8-2013.12/libgomp/configure.ac.p9~	2010-12-06 01:50:04.000000000 +0100
-+++ gcc-linaro-4.8-2013.12/libgomp/configure.ac	2014-01-03 22:08:35.193212932 +0100
+--- gcc-linaro-4.8-2013.12/libgomp/configure.ac.omp~	2010-12-06 01:50:04.000000000 +0100
++++ gcc-linaro-4.8-2013.12/libgomp/configure.ac	2014-01-04 13:04:39.217251846 +0100
 @@ -184,6 +184,13 @@ AC_LINK_IFELSE(
     void *g(void *d) { return NULL; }],
    [pthread_t t; pthread_create(&t,NULL,g,NULL);])],
@@ -35,8 +35,8 @@
  
  # Check for functions needed.
  AC_CHECK_FUNCS(getloadavg clock_gettime strtoull)
---- gcc-linaro-4.8-2013.12/libgomp/configure.p9~	2012-09-15 01:33:57.000000000 +0200
-+++ gcc-linaro-4.8-2013.12/libgomp/configure	2014-01-03 22:08:35.179879598 +0100
+--- gcc-linaro-4.8-2013.12/libgomp/configure.omp~	2014-01-04 11:43:24.017187863 +0100
++++ gcc-linaro-4.8-2013.12/libgomp/configure	2014-01-04 13:04:39.223918509 +0100
 @@ -15022,7 +15022,54 @@ _ACEOF
  if ac_fn_c_try_link "$LINENO"; then :
    XPCFLAGS=" -Wc,-pthread"
@@ -103,13 +103,13 @@
  fi
  rm -f core conftest.err conftest.$ac_objext \
      conftest$ac_exeext conftest.$ac_ext
---- gcc-linaro-4.8-2013.12/libgomp/env.c.p9~	2014-01-03 21:42:09.453192122 +0100
-+++ gcc-linaro-4.8-2013.12/libgomp/env.c	2014-01-03 22:11:02.506548199 +0100
-@@ -57,8 +57,10 @@
+--- gcc-linaro-4.8-2013.12/libgomp/env.c.omp~	2014-01-04 12:45:10.653903173 +0100
++++ gcc-linaro-4.8-2013.12/libgomp/env.c	2014-01-04 13:06:29.637253291 +0100
+@@ -42,9 +42,9 @@
+ # endif
+ #endif
  #include <sys/mman.h>
- #include <sys/mman.h>
- #include <sys/mman.h>
-+#include <sys/mman.h>
+-#include <sys/mman.h>
  #include <limits.h>
  #include <errno.h>
 +#include <asm/page.h>
