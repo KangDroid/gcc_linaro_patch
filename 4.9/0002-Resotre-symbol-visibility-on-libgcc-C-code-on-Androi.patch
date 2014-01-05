@@ -1,0 +1,32 @@
+From ff7f1691c8393a30916eb461bf330ce8050160fa Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Bernhard=20Rosenkr=C3=A4nzer?=
+ <Bernhard.Rosenkranzer@linaro.org>
+Date: Sun, 5 Jan 2014 23:57:26 +0100
+Subject: [PATCH 02/17] Resotre symbol visibility on libgcc C code on Android
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+This is needed for the hacks in Bionic to re-export libgcc symbols for
+compatibility with blobs.
+
+Signed-off-by: Bernhard Rosenkränzer <Bernhard.Rosenkranzer@linaro.org>
+---
+ libgcc/config/arm/bpabi-lib.h | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/libgcc/config/arm/bpabi-lib.h b/libgcc/config/arm/bpabi-lib.h
+index 193cc56..0830cd0 100644
+--- a/libgcc/config/arm/bpabi-lib.h
++++ b/libgcc/config/arm/bpabi-lib.h
+@@ -22,6 +22,7 @@
+ /* Make __aeabi_AEABI_NAME an alias for __GCC_NAME.  */
+ #define RENAME_LIBRARY(GCC_NAME, AEABI_NAME)		\
+   typeof (__##GCC_NAME) __aeabi_##AEABI_NAME \
++    __attribute__((visibility("default"))) \
+     __attribute__((alias ("__" #GCC_NAME)));
+ 
+ /* Give some libgcc functions an additional __aeabi name.  */
+-- 
+1.8.4.5
+

@@ -1,0 +1,30 @@
+From bc047c285952c2a9e4e1cbc19ceebfe5f54e5f4f Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Bernhard=20Rosenkr=C3=A4nzer?=
+ <Bernhard.Rosenkranzer@linaro.org>
+Date: Mon, 6 Jan 2014 00:01:30 +0100
+Subject: [PATCH 06/17] Support Clang in C++11
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Signed-off-by: Bernhard Rosenkränzer <Bernhard.Rosenkranzer@linaro.org>
+---
+ libstdc++-v3/include/std/type_traits | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/libstdc++-v3/include/std/type_traits b/libstdc++-v3/include/std/type_traits
+index 4b434a6..0261c7d 100644
+--- a/libstdc++-v3/include/std/type_traits
++++ b/libstdc++-v3/include/std/type_traits
+@@ -1938,7 +1938,7 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
+     struct __common_type_impl
+     : private __do_common_type_impl
+     {
+-      typedef decltype(_S_test<_Tp, _Up>(0)) type;
++      typedef typename decay<decltype(_S_test<_Tp, _Up>(0))>::type type;
+     };
+ 
+   struct __do_member_type_wrapper
+-- 
+1.8.4.5
+
