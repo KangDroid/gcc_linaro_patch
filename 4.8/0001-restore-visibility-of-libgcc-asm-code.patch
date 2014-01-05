@@ -1,6 +1,6 @@
 --- gcc/libgcc/Makefile.in.bero	2013-05-08 22:10:03.352762957 +0200
 +++ gcc/libgcc/Makefile.in	2013-05-08 22:46:28.648443002 +0200
-@@ -370,7 +370,21 @@ endif
+@@ -370,7 +370,22 @@ endif
  # overriding that with #pragmas.
  vis_hide = @vis_hide@
  
@@ -17,6 +17,7 @@
 +endif
 +ifneq (,$(findstring android,$(target_noncanonical)))
 +  hide_symbols=no
++  vis_hide=
 +endif
 +
 +ifneq (no,$(hide_symbols))
