@@ -1,19 +1,9 @@
-commit e1fce51a71d64029a723509e218a7c65cd8abaf2
-Author: Ben Cheng <bccheng@google.com>
-Date:   Wed Feb 5 16:36:02 2014 -0800
-
-    Define bionic aarch64 linker path.
-    
-    Change-Id: Id343d7a1b74dea14cc0856cfc1e230a01db7c740
-
-diff --git a/gcc/config/aarch64/aarch64-linux.h b/gcc/config/aarch64/aarch64-linux.h
-index 8cfe4d4..f9e75fa 100644
---- a/gcc/config/aarch64/aarch64-linux.h
-+++ b/gcc/config/aarch64/aarch64-linux.h
+--- gcc-4.9/gcc/config/aarch64/aarch64-linux.h.p19~	2014-03-06 04:33:05.953937751 +0100
++++ gcc-4.9/gcc/config/aarch64/aarch64-linux.h	2014-03-06 04:33:31.185150129 +0100
 @@ -22,6 +22,7 @@
  #define GCC_AARCH64_LINUX_H
  
- #define GLIBC_DYNAMIC_LINKER "/lib/ld-linux-aarch64.so.1"
+ #define GLIBC_DYNAMIC_LINKER "/lib/ld-linux-aarch64%{mbig-endian:_be}.so.1"
 +#define BIONIC_DYNAMIC_LINKER "/system/bin/linker64"
  
  #define CPP_SPEC "%{pthread:-D_REENTRANT}"
