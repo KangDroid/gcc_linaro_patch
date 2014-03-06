@@ -32,7 +32,7 @@ index 2bdae7a..8cfe4d4 100644
 +#undef  LIB_SPEC
 +#define LIB_SPEC							\
 +  LINUX_OR_ANDROID_LD (GNU_USER_TARGET_LIB_SPEC,			\
-+		       GNU_USER_TARGET_LIB_SPEC_LESS_PTHREAD " " ANDROID_LIB_SPEC)
++		       GNU_USER_TARGET_NO_PTHREADS_LIB_SPEC " " ANDROID_LIB_SPEC)
 +
 +#undef	STARTFILE_SPEC
 +#define STARTFILE_SPEC \
@@ -43,3 +43,27 @@ index 2bdae7a..8cfe4d4 100644
 +  LINUX_OR_ANDROID_LD (GNU_USER_TARGET_ENDFILE_SPEC, ANDROID_ENDFILE_SPEC)
 +
  #endif  /* GCC_AARCH64_LINUX_H */
+--- gcc-4.9/gcc/config.gcc.omv~	2014-03-06 07:54:19.389906324 +0100
++++ gcc-4.9/gcc/config.gcc	2014-03-06 07:54:26.963915051 +0100
+@@ -903,7 +903,8 @@ aarch64*-*-elf)
+ 	TM_MULTILIB_CONFIG=`echo $TM_MULTILIB_CONFIG | sed 's/^,//'`
+ 	;;
+ aarch64*-*-linux*)
+-	tm_file="${tm_file} dbxelf.h elfos.h gnu-user.h linux.h glibc-stdint.h"
++	tm_file="${tm_file} dbxelf.h elfos.h gnu-user.h linux.h linux-android.h glibc-stdint.h"
+ 	tm_file="${tm_file} aarch64/aarch64-elf.h aarch64/aarch64-linux.h"
+ 	tmake_file="${tmake_file} aarch64/t-aarch64 aarch64/t-aarch64-linux"
++	extra_options="${extra_options} linux-android.opt"
+ 	case $target in
+diff --git gcc-4.8/gcc/config/aarch64/aarch64-linux.h gcc-4.8/gcc/config/aarch64/aarch64-linux.h
+index 83efad4..2bdae7a 100644
+--- gcc-4.8/gcc/config/aarch64/aarch64-linux.h
++++ gcc-4.8/gcc/config/aarch64/aarch64-linux.h
+@@ -40,6 +40,7 @@
+   do						\
+     {						\
+ 	GNU_USER_TARGET_OS_CPP_BUILTINS();	\
++	ANDROID_TARGET_OS_CPP_BUILTINS();	\
+     }						\
+   while (0)
+ 
