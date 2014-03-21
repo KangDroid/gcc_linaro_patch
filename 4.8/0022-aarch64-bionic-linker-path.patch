@@ -10,10 +10,11 @@ diff --git a/gcc/config/aarch64/aarch64-linux.h b/gcc/config/aarch64/aarch64-lin
 index 8cfe4d4..f9e75fa 100644
 --- a/gcc/config/aarch64/aarch64-linux.h
 +++ b/gcc/config/aarch64/aarch64-linux.h
-@@ -22,6 +22,7 @@
+@@ -22,6 +22,8 @@
  #define GCC_AARCH64_LINUX_H
  
  #define GLIBC_DYNAMIC_LINKER "/lib/ld-linux-aarch64.so.1"
++#undef BIONIC_DYNAMIC_LINKER
 +#define BIONIC_DYNAMIC_LINKER "/system/bin/linker64"
  
  #define CPP_SPEC "%{pthread:-D_REENTRANT}"
