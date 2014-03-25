@@ -41,3 +41,14 @@
  
  #define ANDROID_CC1PLUS_SPEC						\
    "%{!fexceptions:%{!fno-exceptions: -fno-exceptions}} "		\
+--- gcc-4.8/gcc/config/mips/linux-common.h.omv~	2014-03-25 08:25:23.885593913 +0100
++++ gcc-4.8/gcc/config/mips/linux-common.h	2014-03-25 08:25:40.146645633 +0100
+@@ -35,7 +35,7 @@ along with GCC; see the file COPYING3.
+ #undef  SUBTARGET_CC1_SPEC
+ #define SUBTARGET_CC1_SPEC						\
+   LINUX_OR_ANDROID_CC (GNU_USER_TARGET_CC1_SPEC,			\
+-		       GNU_USER_TARGET_CC1_SPEC " " ANDROID_CC1_SPEC)
++		       GNU_USER_TARGET_CC1_SPEC " " ANDROID_CC1_SPEC("-fpic"))
+ 
+ #undef  CC1PLUS_SPEC
+ #define CC1PLUS_SPEC							\
