@@ -80,10 +80,10 @@ index a8f0771..4eacdb2 100644
 +  LINUX_OR_ANDROID_LD (GNU_USER_TARGET_ENDFILE_SPEC, ANDROID_ENDFILE_SPEC)
 +
  #endif  /* GCC_AARCH64_LINUX_H */
-diff --git a/gcc-4.9/libatomic/configure.tgt b/gcc-4.9/libatomic/configure.tgt
+diff --git a/libatomic/configure.tgt b/libatomic/configure.tgt
 index a3757ef..3904e66 100644
---- a/gcc-4.9/libatomic/configure.tgt
-+++ b/gcc-4.9/libatomic/configure.tgt
+--- a/libatomic/configure.tgt
++++ b/libatomic/configure.tgt
 @@ -95,6 +95,11 @@ fi
  
  # Other system configury
@@ -96,10 +96,10 @@ index a3757ef..3904e66 100644
    arm*-*-linux*)
  	# OS support for atomic primitives.
  	config_path="${config_path} linux/arm posix"
-diff --git a/gcc-4.9/libgcc/config.host b/gcc-4.9/libgcc/config.host
+diff --git a/libgcc/config.host b/libgcc/config.host
 index f8f74cc..91d4962 100644
---- a/gcc-4.9/libgcc/config.host
-+++ b/gcc-4.9/libgcc/config.host
+--- a/libgcc/config.host
++++ b/libgcc/config.host
 @@ -320,7 +320,8 @@ aarch64*-*-elf)
  	tmake_file="${tmake_file} ${cpu_type}/t-softfp t-softfp"
  	;;
