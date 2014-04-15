@@ -1,0 +1,30 @@
+From fed003a30eac2178f956d5a0e3d0339baa89af8f Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Bernhard=20Rosenkr=C3=A4nzer?=
+ <Bernhard.Rosenkranzer@linaro.org>
+Date: Mon, 6 Jan 2014 00:01:57 +0100
+Subject: [PATCH 07/17] Enable _GLIBCXX_HAS_THREADS
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Signed-off-by: Bernhard Rosenkränzer <Bernhard.Rosenkranzer@linaro.org>
+---
+ libstdc++-v3/configure | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/libstdc++-v3/configure b/libstdc++-v3/configure
+index 448bee3..a943808 100755
+--- a/libstdc++-v3/configure
++++ b/libstdc++-v3/configure
+@@ -72443,7 +72443,7 @@ $as_echo_n "checking for gthreads library... " >&6; }
+ 
+   cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+ /* end confdefs.h.  */
+-#include "gthr.h"
++#include "gthr-$target_thread_file.h"
+ int
+ main ()
+ {
+-- 
+1.8.4.5
+
