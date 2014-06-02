@@ -1,0 +1,35 @@
+commit 44ea170a62f4bb566c5487c446a31300d1e0e319
+Author: Andrew Hsieh <andrewhsieh@google.com>
+Date:   Mon Apr 14 21:48:49 2014 -0700
+
+    [4.9] Fix missing _U, _L, etc
+    
+    See a1d2625be0186dc4970774bced8787f3f5f234bf
+    
+    Change-Id: I09088abedaaf57be70fdf967d6d1355be1dd82d9
+
+diff --git a/libstdc++-v3/config/os/bionic/ctype_base.h b/libstdc++-v3/config/os/bionic/ctype_base.h
+index 597509b..a6ccfb9 100644
+--- a/libstdc++-v3/config/os/bionic/ctype_base.h
++++ b/libstdc++-v3/config/os/bionic/ctype_base.h
+@@ -30,6 +30,20 @@
+ 
+ // Support for Solaris 2.5.1
+ 
++#if !defined(_U)
++#if !defined(_CTYPE_U)
++#error Bionic header ctype.h does not define either _U nor _CTYPE_U
++#endif
++#define _U _CTYPE_U
++#define _L _CTYPE_L
++#define _N _CTYPE_N
++#define _S _CTYPE_S
++#define _P _CTYPE_P
++#define _C _CTYPE_C
++#define _X _CTYPE_X
++#define _B _CTYPE_B
++#endif
++
+ namespace std _GLIBCXX_VISIBILITY(default)
+ {
+ _GLIBCXX_BEGIN_NAMESPACE_VERSION
