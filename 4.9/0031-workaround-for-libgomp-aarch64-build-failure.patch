@@ -1,0 +1,13 @@
+--- gcc-linaro-4.9-2014.05/libgomp/env.c.omv~	2014-06-05 23:11:00.090186597 +0200
++++ gcc-linaro-4.9-2014.05/libgomp/env.c	2014-06-05 23:12:12.769277983 +0200
+@@ -49,6 +49,10 @@
+ #include <limits.h>
+ #include <errno.h>
+ 
++#ifndef PAGE_SIZE
++#define PAGE_SIZE 4096
++#endif
++
+ #ifndef HAVE_STRTOULL
+ # define strtoull(ptr, eptr, base) strtoul (ptr, eptr, base)
+ #endif
