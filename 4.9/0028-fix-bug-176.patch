@@ -1,0 +1,24 @@
+--- gcc-4_9-branch/gcc/config/arm/neon.md	2014/07/17 05:51:44	212714
++++ gcc-4_9-branch/gcc/config/arm/neon.md	2014/08/10 22:59:19	213800
+@@ -1041,7 +1041,9 @@
+       }
+     else
+       {
+-	if (CONST_INT_P (operands[2]) && INTVAL (operands[2]) == 1)
++	if (CONST_INT_P (operands[2]) && INTVAL (operands[2]) == 1
++	    && (!reg_overlap_mentioned_p (operands[0], operands[1])
++		|| REGNO (operands[0]) == REGNO (operands[1])))
+ 	  /* This clobbers CC.  */
+ 	  emit_insn (gen_arm_ashldi3_1bit (operands[0], operands[1]));
+ 	else
+@@ -1141,7 +1143,9 @@
+       }
+     else
+       {
+-	if (CONST_INT_P (operands[2]) && INTVAL (operands[2]) == 1)
++	if (CONST_INT_P (operands[2]) && INTVAL (operands[2]) == 1
++	    && (!reg_overlap_mentioned_p (operands[0], operands[1])
++		|| REGNO (operands[0]) == REGNO (operands[1])))
+ 	  /* This clobbers CC.  */
+ 	  emit_insn (gen_arm_<shift>di3_1bit (operands[0], operands[1]));
+ 	else
