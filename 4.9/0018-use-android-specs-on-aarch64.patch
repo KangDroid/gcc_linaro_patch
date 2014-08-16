@@ -1,5 +1,5 @@
---- gcc-linaro-4.9-2014.07/gcc/config/aarch64/aarch64-linux.h.aspecs~	2014-07-16 17:45:43.000000000 +0200
-+++ gcc-linaro-4.9-2014.07/gcc/config/aarch64/aarch64-linux.h	2014-07-18 17:49:28.896580583 +0200
+--- gcc-linaro-4.9-2014.08/gcc/config/aarch64/aarch64-linux.h.omv~	2014-08-16 19:48:56.056208790 +0200
++++ gcc-linaro-4.9-2014.08/gcc/config/aarch64/aarch64-linux.h	2014-08-16 19:51:51.295018003 +0200
 @@ -22,6 +22,7 @@
  #define GCC_AARCH64_LINUX_H
  
@@ -8,7 +8,7 @@
  
  #define CPP_SPEC "%{pthread:-D_REENTRANT}"
  
-@@ -35,13 +36,38 @@
+@@ -35,15 +36,40 @@
     %{mbig-endian:-EB} %{mlittle-endian:-EL}     \
     -maarch64linux%{mabi=ilp32:32}%{mbig-endian:b}"
  
@@ -22,35 +22,37 @@
      }						\
    while (0)
  
-+#undef  LINK_SPEC
-+#define LINK_SPEC							\
-+  LINUX_OR_ANDROID_LD (LINUX_TARGET_LINK_SPEC,				\
-+		       LINUX_TARGET_LINK_SPEC " " ANDROID_LINK_SPEC)
++#undef	LINK_SPEC
++#define	LINK_SPEC \
++	LINUX_OR_ANDROID_LD (LINUX_TARGET_LINK_SPEC, \
++	                     LINUX_TARGET_LINK_SPEC " " ANDROID_LINK_SPEC)
 +
-+#undef  CC1_SPEC
-+#define CC1_SPEC							\
-+  LINUX_OR_ANDROID_CC (GNU_USER_TARGET_CC1_SPEC,			\
-+		       GNU_USER_TARGET_CC1_SPEC " " ANDROID_CC1_SPEC("-fPIC"))
++#undef	CC1_SPEC
++#define	CC1_SPEC \
++	LINUX_OR_ANDROID_CC (GNU_USER_TARGET_CC1_SPEC, \
++	                     GNU_USER_TARGET_CC1_SPEC " " ANDROID_CC1_SPEC("-fPIC"))
 +
-+#define CC1PLUS_SPEC \
-+  LINUX_OR_ANDROID_CC ("", ANDROID_CC1PLUS_SPEC)
++#define	CC1PLUS_SPEC \
++	LINUX_OR_ANDROID_CC ("", ANDROID_CC1PLUS_SPEC)
 +
-+#undef  LIB_SPEC
-+#define LIB_SPEC							\
-+  LINUX_OR_ANDROID_LD (GNU_USER_TARGET_LIB_SPEC,			\
-+		    GNU_USER_TARGET_NO_PTHREADS_LIB_SPEC " " ANDROID_LIB_SPEC)
++#undef	LIB_SPEC
++#define	LIB_SPEC \
++	LINUX_OR_ANDROID_LD (GNU_USER_TARGET_LIB_SPEC, \
++	                     GNU_USER_TARGET_NO_PTHREADS_LIB_SPEC " " ANDROID_LIB_SPEC)
 +
 +#undef	STARTFILE_SPEC
-+#define STARTFILE_SPEC \
-+  LINUX_OR_ANDROID_LD (GNU_USER_TARGET_STARTFILE_SPEC, ANDROID_STARTFILE_SPEC)
++#define	STARTFILE_SPEC \
++	LINUX_OR_ANDROID_LD (GNU_USER_TARGET_STARTFILE_SPEC, ANDROID_STARTFILE_SPEC)
 +
 +#undef	ENDFILE_SPEC
-+#define ENDFILE_SPEC \
-+  LINUX_OR_ANDROID_LD (GNU_USER_TARGET_ENDFILE_SPEC, ANDROID_ENDFILE_SPEC)
++#define	ENDFILE_SPEC \
++	LINUX_OR_ANDROID_LD (GNU_USER_TARGET_ENDFILE_SPEC, ANDROID_ENDFILE_SPEC)
 +
+ #define TARGET_ASM_FILE_END file_end_indicate_exec_stack
+ 
  #endif  /* GCC_AARCH64_LINUX_H */
---- gcc-linaro-4.9-2014.07/gcc/config.gcc.aspecs~	2014-07-17 08:21:27.000000000 +0200
-+++ gcc-linaro-4.9-2014.07/gcc/config.gcc	2014-07-18 17:49:04.411886684 +0200
+--- gcc-linaro-4.9-2014.08/gcc/config.gcc.omv~	2014-08-16 19:52:00.662900888 +0200
++++ gcc-linaro-4.9-2014.08/gcc/config.gcc	2014-08-16 19:52:42.345379786 +0200
 @@ -902,8 +902,9 @@ aarch64*-*-elf)
  	TM_MULTILIB_CONFIG=`echo $TM_MULTILIB_CONFIG | sed 's/^,//'`
  	;;

@@ -1,5 +1,5 @@
---- gcc-linaro-4.9-2014.07/gcc/config/aarch64/aarch64-linux.h.linker~	2014-07-18 17:50:44.898630427 +0200
-+++ gcc-linaro-4.9-2014.07/gcc/config/aarch64/aarch64-linux.h	2014-07-18 17:51:04.056390922 +0200
+--- gcc-linaro-4.9-2014.08/gcc/config/aarch64/aarch64-linux.h.omv~	2014-08-16 19:56:45.446340606 +0200
++++ gcc-linaro-4.9-2014.08/gcc/config/aarch64/aarch64-linux.h	2014-08-16 19:56:55.631213277 +0200
 @@ -22,6 +22,7 @@
  #define GCC_AARCH64_LINUX_H
  
