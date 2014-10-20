@@ -141,7 +141,7 @@ index 5a58b59..1f0df5c 100755
 --- a/gcc/configure
 +++ b/gcc/configure
 @@ -921,6 +921,7 @@ enable_initfini_array
- enable_comdat
+ enable_fix_cortex_a53_835769
  with_glibc_version
  enable_gnu_unique_object
 +enable_eh_frame_hdr_for_static
