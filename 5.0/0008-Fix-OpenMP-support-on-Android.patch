@@ -1,23 +1,5 @@
-From 44d86ccd03dd8224b82bfd53e4b899aeeb61a0ec Mon Sep 17 00:00:00 2001
-From: =?UTF-8?q?Bernhard=20Rosenkr=C3=A4nzer?=
- <Bernhard.Rosenkranzer@linaro.org>
-Date: Mon, 6 Jan 2014 00:02:23 +0100
-Subject: [PATCH 08/17] Fix OpenMP support on Android
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-Signed-off-by: Bernhard Rosenkränzer <Bernhard.Rosenkranzer@linaro.org>
----
- gcc/config/linux-android.h |  3 ++-
- libgomp/configure          | 52 +++++++++++++++++++++++++++++++++++++++++++++-
- libgomp/configure.ac       |  9 +++++++-
- 3 files changed, 61 insertions(+), 3 deletions(-)
-
-diff --git a/gcc/config/linux-android.h b/gcc/config/linux-android.h
-index 26f1a74..24574fa 100644
---- a/gcc/config/linux-android.h
-+++ b/gcc/config/linux-android.h
+--- gcc-5.0/gcc/config/linux-android.h.omv~	2015-01-03 12:36:08.117468854 +0100
++++ gcc-5.0/gcc/config/linux-android.h	2015-01-03 12:36:38.661015906 +0100
 @@ -49,7 +49,8 @@
    "%{!frtti:%{!fno-rtti: -fno-rtti}}"
  
@@ -28,11 +10,34 @@ index 26f1a74..24574fa 100644
  
  #define ANDROID_STARTFILE_SPEC						\
    "%{shared: crtbegin_so%O%s;:"						\
-diff --git a/libgomp/configure b/libgomp/configure
-index 766eb09..17e8445 100755
---- a/libgomp/configure
-+++ b/libgomp/configure
-@@ -15028,7 +15028,54 @@ _ACEOF
+--- gcc-5.0/libgomp/configure.ac.omv~	2015-01-03 12:40:54.506113200 +0100
++++ gcc-5.0/libgomp/configure.ac	2015-01-03 12:43:03.946990041 +0100
+@@ -184,6 +184,13 @@ AC_LINK_IFELSE(
+    void *g(void *d) { return NULL; }],
+   [pthread_t t; pthread_create(&t,NULL,g,NULL);])],
+  [XPCFLAGS=" -Wc,-pthread"],
++ [CFLAGS="$save_CFLAGS" LIBS="$LIBS"
++  AC_LINK_IFELSE(
++   [AC_LANG_PROGRAM(
++    [#include <pthread.h>
++     void *g(void *d) { return NULL; }],
++    [pthread_t t; pthread_create(&t,NULL,g,NULL);])],
++   [],
+  [CFLAGS="$save_CFLAGS" LIBS="-lpthread $LIBS"
+   AC_LINK_IFELSE(
+    [AC_LANG_PROGRAM(
+@@ -191,7 +198,7 @@ AC_LINK_IFELSE(
+      void *g(void *d) { return NULL; }],
+     [pthread_t t; pthread_create(&t,NULL,g,NULL);])],
+    [],
+-   [AC_MSG_ERROR([Pthreads are required to build libgomp])])])
++   [AC_MSG_ERROR([Pthreads are required to build libgomp])])])])
+ 
+ plugin_support=yes
+ AC_CHECK_LIB(dl, dlsym, , [plugin_support=no])
+--- gcc-5.0/libgomp/configure.omv~	2015-01-03 12:36:49.937761295 +0100
++++ gcc-5.0/libgomp/configure	2015-01-03 12:40:50.789421213 +0100
+@@ -15031,7 +15031,54 @@ _ACEOF
  if ac_fn_c_try_link "$LINENO"; then :
    XPCFLAGS=" -Wc,-pthread"
  else
@@ -88,43 +93,13 @@ index 766eb09..17e8445 100755
    cat confdefs.h - <<_ACEOF >conftest.$ac_ext
  /* end confdefs.h.  */
  #include <pthread.h>
-@@ -15051,6 +15098,9 @@ rm -f core conftest.err conftest.$ac_objext \
- fi
- rm -f core conftest.err conftest.$ac_objext \
+@@ -15090,6 +15137,9 @@ rm -f core conftest.err conftest.$ac_obj
      conftest$ac_exeext conftest.$ac_ext
+ LIBS=$ac_check_lib_save_LIBS
+ fi
 +fi
 +rm -f core conftest.err conftest.$ac_objext \
 +    conftest$ac_exeext conftest.$ac_ext
- 
- # Check for functions needed.
- for ac_func in getloadavg clock_gettime strtoull
-diff --git a/libgomp/configure.ac b/libgomp/configure.ac
-index 84d250f..59b9516 100644
---- a/libgomp/configure.ac
-+++ b/libgomp/configure.ac
-@@ -184,6 +184,13 @@ AC_LINK_IFELSE(
-    void *g(void *d) { return NULL; }],
-   [pthread_t t; pthread_create(&t,NULL,g,NULL);])],
-  [XPCFLAGS=" -Wc,-pthread"],
-+ [CFLAGS="$save_CFLAGS" LIBS="$LIBS"
-+  AC_LINK_IFELSE(
-+   [AC_LANG_PROGRAM(
-+    [#include <pthread.h>
-+     void *g(void *d) { return NULL; }],
-+    [pthread_t t; pthread_create(&t,NULL,g,NULL);])],
-+   [],
-  [CFLAGS="$save_CFLAGS" LIBS="-lpthread $LIBS"
-   AC_LINK_IFELSE(
-    [AC_LANG_PROGRAM(
-@@ -191,7 +198,7 @@ AC_LINK_IFELSE(
-      void *g(void *d) { return NULL; }],
-     [pthread_t t; pthread_create(&t,NULL,g,NULL);])],
-    [],
--   [AC_MSG_ERROR([Pthreads are required to build libgomp])])])
-+   [AC_MSG_ERROR([Pthreads are required to build libgomp])])])])
- 
- # Check for functions needed.
- AC_CHECK_FUNCS(getloadavg clock_gettime strtoull)
--- 
-1.8.4.5
-
+ { $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_lib_dl_dlsym" >&5
+ $as_echo "$ac_cv_lib_dl_dlsym" >&6; }
+ if test "x$ac_cv_lib_dl_dlsym" = x""yes; then :

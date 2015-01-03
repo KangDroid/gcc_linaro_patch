@@ -1,22 +1,58 @@
-commit 65453211e00f83dee15ba04e3297852d1683160d
-Author: Ben Cheng <bccheng@google.com>
-Date:   Wed Apr 2 13:57:00 2014 -0700
-
-    [4.9] Apply aarch64 patches for Android toolchain build.
-    
-    - The changes in gcc/config.gcc and gcc/config/aarch64/aarch64-linux.h
-      will be upstreamed.
-    - libatomic is disabled for now.
-    - md_unwind_header in libgcc/config.host is also disabled for now due to
-      lack of sys/ucontext.h.
-    
-    Change-Id: Idad7c75a9eaf27e6737fe3a217ff2791b4bf8358
-
-diff --git a/gcc/config.gcc b/gcc/config.gcc
-index 3c55c88..7e51940 100644
---- a/gcc/config.gcc
-+++ b/gcc/config.gcc
-@@ -903,8 +903,9 @@ aarch64*-*-elf)
+--- gcc-5.0/gcc/config/aarch64/aarch64-linux.h.omv~	2015-01-03 13:09:08.974824478 +0100
++++ gcc-5.0/gcc/config/aarch64/aarch64-linux.h	2015-01-03 13:14:47.643252366 +0100
+@@ -22,12 +22,30 @@
+ #define GCC_AARCH64_LINUX_H
+ 
+ #define GLIBC_DYNAMIC_LINKER "/lib/ld-linux-aarch64%{mbig-endian:_be}%{mabi=ilp32:_ilp32}.so.1"
++#define BIONIC_DYNAMIC_LINKER "/system/bin/linker64"
+ 
+ #undef  ASAN_CC1_SPEC
+ #define ASAN_CC1_SPEC "%{%:sanitize(address):-funwind-tables}"
+ 
+ #undef  CC1_SPEC
+-#define CC1_SPEC GNU_USER_TARGET_CC1_SPEC ASAN_CC1_SPEC
++#define CC1_SPEC LINUX_OR_ANDROID_CC(GNU_USER_TARGET_CC1_SPEC,	\
++		GNU_USER_TARGET_CC1_SPEC " " ANDROID_CC1_SPEC("-fPIC")) ASAN_CC1_SPEC
++
++#define CC1PLUS_SPEC \
++	LINUX_OR_ANDROID_CC ("", ANDROID_CC1PLUS_SPEC)
++
++#undef LIB_SPEC
++#define LIB_SPEC \
++	LINUX_OR_ANDROID_LD (GNU_USER_TARGET_LIB_SPEC, \
++		GNU_USER_TARGET_NO_PTHREADS_LIB_SPEC " " ANDROID_LIB_SPEC)
++
++#undef STARTFILE_SPEC
++#define STARTFILE_SPEC \
++	LINUX_OR_ANDROID_LD (GNU_USER_TARGET_STARTFILE_SPEC, ANDROID_STARTFILE_SPEC)
++
++#undef ENDFILE_SPEC
++#define ENDFILE_SPEC \
++	LINUX_OR_ANDROID_LD (GNU_USER_TARGET_ENDFILE_SPEC, ANDROID_ENDFILE_SPEC)
+ 
+ #define CPP_SPEC "%{pthread:-D_REENTRANT}"
+ 
+@@ -49,7 +67,8 @@
+   " %{mfix-cortex-a53-835769:--fix-cortex-a53-835769}"
+ #endif
+ 
+-#define LINK_SPEC LINUX_TARGET_LINK_SPEC \
++#define LINK_SPEC LINUX_OR_ANDROID_LD (LINUX_TARGET_LINK_SPEC,	\
++                  LINUX_TARGET_LINK_SPEC " " ANDROID_LINK_SPEC)	\
+                   CA53_ERR_835769_SPEC
+ 
+ #define GNU_USER_TARGET_MATHFILE_SPEC \
+@@ -64,6 +83,7 @@
+   do						\
+     {						\
+ 	GNU_USER_TARGET_OS_CPP_BUILTINS();	\
++	ANDROID_TARGET_OS_CPP_BUILTINS();	\
+     }						\
+   while (0)
+ 
+--- gcc-5.0/gcc/config.gcc.omv~	2015-01-03 13:07:48.517754552 +0100
++++ gcc-5.0/gcc/config.gcc	2015-01-03 13:09:02.768126472 +0100
+@@ -906,8 +906,9 @@ aarch64*-*-elf)
  	TM_MULTILIB_CONFIG=`echo $TM_MULTILIB_CONFIG | sed 's/^,//'`
  	;;
  aarch64*-*-linux*)
@@ -27,86 +63,28 @@ index 3c55c88..7e51940 100644
  	tmake_file="${tmake_file} aarch64/t-aarch64 aarch64/t-aarch64-linux"
  	case $target in
  	aarch64_be-*)
-diff --git a/gcc/config/aarch64/aarch64-linux.h b/gcc/config/aarch64/aarch64-linux.h
-index a8f0771..4eacdb2 100644
---- a/gcc/config/aarch64/aarch64-linux.h
-+++ b/gcc/config/aarch64/aarch64-linux.h
-@@ -22,6 +22,7 @@
- #define GCC_AARCH64_LINUX_H
- 
- #define GLIBC_DYNAMIC_LINKER "/lib/ld-linux-aarch64%{mbig-endian:_be}.so.1"
-+#define BIONIC_DYNAMIC_LINKER "/system/bin/linker64"
- 
- #define CPP_SPEC "%{pthread:-D_REENTRANT}"
- 
-@@ -35,13 +36,38 @@
-    %{mbig-endian:-EB} %{mlittle-endian:-EL}     \
-    -maarch64linux%{mbig-endian:b}"
- 
--#define LINK_SPEC LINUX_TARGET_LINK_SPEC
--
- #define TARGET_OS_CPP_BUILTINS()		\
-   do						\
-     {						\
- 	GNU_USER_TARGET_OS_CPP_BUILTINS();	\
-+	ANDROID_TARGET_OS_CPP_BUILTINS();	\
-     }						\
-   while (0)
- 
-+#undef  LINK_SPEC
-+#define LINK_SPEC							\
-+  LINUX_OR_ANDROID_LD (LINUX_TARGET_LINK_SPEC,				\
-+		       LINUX_TARGET_LINK_SPEC " " ANDROID_LINK_SPEC)
-+
-+#undef  CC1_SPEC
-+#define CC1_SPEC							\
-+  LINUX_OR_ANDROID_CC (GNU_USER_TARGET_CC1_SPEC,			\
-+		       GNU_USER_TARGET_CC1_SPEC " " ANDROID_CC1_SPEC("-fPIC"))
-+
-+#define CC1PLUS_SPEC \
-+  LINUX_OR_ANDROID_CC ("", ANDROID_CC1PLUS_SPEC)
-+
-+#undef  LIB_SPEC
-+#define LIB_SPEC							\
-+  LINUX_OR_ANDROID_LD (GNU_USER_TARGET_LIB_SPEC,			\
-+		    GNU_USER_TARGET_NO_PTHREADS_LIB_SPEC " " ANDROID_LIB_SPEC)
-+
-+#undef	STARTFILE_SPEC
-+#define STARTFILE_SPEC \
-+  LINUX_OR_ANDROID_LD (GNU_USER_TARGET_STARTFILE_SPEC, ANDROID_STARTFILE_SPEC)
-+
-+#undef	ENDFILE_SPEC
-+#define ENDFILE_SPEC \
-+  LINUX_OR_ANDROID_LD (GNU_USER_TARGET_ENDFILE_SPEC, ANDROID_ENDFILE_SPEC)
-+
- #endif  /* GCC_AARCH64_LINUX_H */
-diff --git a/libatomic/configure.tgt b/libatomic/configure.tgt
-index a3757ef..3904e66 100644
---- a/libatomic/configure.tgt
-+++ b/libatomic/configure.tgt
-@@ -95,6 +95,11 @@ fi
+--- gcc-5.0/libatomic/configure.tgt.omv~	2015-01-03 13:14:54.263287687 +0100
++++ gcc-5.0/libatomic/configure.tgt	2015-01-03 13:15:56.350287068 +0100
+@@ -99,6 +99,10 @@ fi
  
  # Other system configury
  case "${target}" in
 +  aarch64*)
-+    # ANDROID - This is currently not supported in AArch64.
-+    UNSUPPORTED=1
-+    ;;
-+
++	# ANDROID - This is currently not supported in AArch64.
++	UNSUPPORTED=1
++	;;
    arm*-*-linux*)
  	# OS support for atomic primitives.
  	config_path="${config_path} linux/arm posix"
-diff --git a/libgcc/config.host b/libgcc/config.host
-index f8f74cc..91d4962 100644
---- a/libgcc/config.host
-+++ b/libgcc/config.host
-@@ -320,7 +320,8 @@ aarch64*-*-elf)
- 	tmake_file="${tmake_file} ${cpu_type}/t-softfp t-softfp"
+--- gcc-5.0/libgcc/config.host.omv~	2015-01-03 13:16:00.970311928 +0100
++++ gcc-5.0/libgcc/config.host	2015-01-03 13:16:55.203938120 +0100
+@@ -325,7 +325,8 @@ aarch64*-*-elf)
  	;;
  aarch64*-*-linux*)
+ 	extra_parts="$extra_parts crtfastmath.o"
 -	md_unwind_header=aarch64/linux-unwind.h
-+    # ANDROID - uncomment when sysroot contains sys/ucontext.h
-+	# md_unwind_header=aarch64/linux-unwind.h
++	# ANDROID - uncomment when sysroot contains sys/ucontext.h
++	#md_unwind_header=aarch64/linux-unwind.h
  	tmake_file="${tmake_file} ${cpu_type}/t-aarch64"
- 	tmake_file="${tmake_file} ${cpu_type}/t-softfp t-softfp"
+ 	tmake_file="${tmake_file} ${cpu_type}/t-softfp t-softfp t-crtfm"
  	;;
