@@ -5,7 +5,7 @@
  #include <limits.h>
  #include <errno.h>
 +#ifdef __ANDROID__
-+#include <asm/page.h> /* for PAGE_SIZE */
++#define PAGE_SIZE sysconf(_SC_PAGE_SIZE)
 +#endif
  
  #ifndef HAVE_STRTOULL
