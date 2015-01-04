@@ -1,0 +1,12 @@
+--- gcc-5.0/libgomp/env.c.omv~	2015-01-04 12:11:26.451201614 +0100
++++ gcc-5.0/libgomp/env.c	2015-01-04 12:12:19.174885028 +0100
+@@ -48,6 +48,9 @@
+ #include <sys/mman.h>
+ #include <limits.h>
+ #include <errno.h>
++#ifdef __ANDROID__
++#include <asm/page.h> /* for PAGE_SIZE used by PTHREAD_STACK_MIN */
++#endif
+ 
+ #ifndef HAVE_STRTOULL
+ # define strtoull(ptr, eptr, base) strtoul (ptr, eptr, base)
