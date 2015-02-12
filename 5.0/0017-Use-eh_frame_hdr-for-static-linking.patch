@@ -24,7 +24,7 @@
 +#endif
  
  #ifdef TARGET_LIBC_PROVIDES_SSP
- #define LINK_SSP_SPEC "%{fstack-protector|fstack-protector-all:-lssp_nonshared}"
+ #define LINK_SSP_SPEC "%{fstack-protector|fstack-protector-all" \
 --- gcc-5.0/gcc/config/gnu-user.h.omv~	2015-01-03 12:53:50.734085173 +0100
 +++ gcc-5.0/gcc/config/gnu-user.h	2015-01-03 12:54:13.590834847 +0100
 @@ -94,8 +94,12 @@ see the files COPYING3 and COPYING.RUNTI
