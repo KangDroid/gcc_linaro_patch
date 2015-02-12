@@ -68,7 +68,7 @@ index ae4d529..ce7cc58 100644
 +
  @cindex Libraries
  @item -l@var{library}
- @itemx -l@var{library}
+ @itemx -l @var{library}
 diff --git a/gcc/gcc.c b/gcc/gcc.c
 index 35d1fe6..d379549 100644
 --- a/gcc/gcc.c
