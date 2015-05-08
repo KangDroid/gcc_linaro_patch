@@ -1,0 +1,39 @@
+From c2cf632795826ca7a1661703237f79b4706bbee0 Mon Sep 17 00:00:00 2001
+From: KangDroid <hyunwoo286@gmail.com>
+Date: Fri, 8 May 2015 21:28:19 +0100
+Subject: [PATCH 09/23] Disable-libstdc-versioning
+
+---
+ libstdc++-v3/src/Makefile.am | 2 +-
+ libstdc++-v3/src/Makefile.in | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/libstdc++-v3/src/Makefile.am b/libstdc++-v3/src/Makefile.am
+index a5f48b2..43deda5 100644
+--- a/libstdc++-v3/src/Makefile.am
++++ b/libstdc++-v3/src/Makefile.am
+@@ -101,7 +101,7 @@ libstdc___la_DEPENDENCIES = \
+ 	$(top_builddir)/src/c++11/libc++11convenience.la
+ 
+ libstdc___la_LDFLAGS = \
+-	-version-info $(libtool_VERSION) ${version_arg} -lm
++	-avoid-version ${version_arg} -lm
+ 
+ libstdc___la_LINK = $(CXXLINK) $(libstdc___la_LDFLAGS)
+ 
+diff --git a/libstdc++-v3/src/Makefile.in b/libstdc++-v3/src/Makefile.in
+index 433f9ea..5ad2d6d 100644
+--- a/libstdc++-v3/src/Makefile.in
++++ b/libstdc++-v3/src/Makefile.in
+@@ -397,7 +397,7 @@ libstdc___la_DEPENDENCIES = \
+ 	$(top_builddir)/src/c++11/libc++11convenience.la
+ 
+ libstdc___la_LDFLAGS = \
+-	-version-info $(libtool_VERSION) ${version_arg} -lm
++	-avoid-version ${version_arg} -lm
+ 
+ libstdc___la_LINK = $(CXXLINK) $(libstdc___la_LDFLAGS)
+ 
+-- 
+2.3.2 (Apple Git-55)
+

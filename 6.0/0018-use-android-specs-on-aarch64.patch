@@ -1,0 +1,122 @@
+From 4046ba0694b42643e9b7acade38f1d1d624b57db Mon Sep 17 00:00:00 2001
+From: KangDroid <hyunwoo286@gmail.com>
+Date: Fri, 8 May 2015 21:35:54 +0100
+Subject: [PATCH 18/23] use-android-specs-on-aarch64
+
+patching file gcc/config/aarch64/aarch64-linux.h
+Hunk #2 FAILED at 67.
+Hunk #3 succeeded at 92 (offset 9 lines).
+1 out of 3 hunks FAILED -- saving rejects to file gcc/config/aarch64/aarch64-linux.h.rej
+patching file gcc/config.gcc
+Hunk #1 succeeded at 915 (offset 9 lines).
+patching file libatomic/configure.tgt
+Hunk #1 succeeded at 104 (offset 5 lines).
+patching file libgcc/config.host
+---
+ gcc/config.gcc                     |  3 ++-
+ gcc/config/aarch64/aarch64-linux.h | 24 ++++++++++++++++++++++--
+ libatomic/configure.tgt            |  4 ++++
+ libgcc/config.host                 |  3 ++-
+ 4 files changed, 30 insertions(+), 4 deletions(-)
+
+diff --git a/gcc/config.gcc b/gcc/config.gcc
+index e993e5d..3a6db98 100644
+--- a/gcc/config.gcc
++++ b/gcc/config.gcc
+@@ -915,8 +915,9 @@ aarch64*-*-elf)
+ 	TM_MULTILIB_CONFIG=`echo $TM_MULTILIB_CONFIG | sed 's/^,//'`
+ 	;;
+ aarch64*-*-linux*)
+-	tm_file="${tm_file} dbxelf.h elfos.h gnu-user.h linux.h glibc-stdint.h"
++	tm_file="${tm_file} dbxelf.h elfos.h gnu-user.h linux.h linux-android.h glibc-stdint.h"
+ 	tm_file="${tm_file} aarch64/aarch64-elf.h aarch64/aarch64-linux.h"
++	extra_options="${extra_options} linux-android.opt"
+ 	tmake_file="${tmake_file} aarch64/t-aarch64 aarch64/t-aarch64-linux"
+ 	case $target in
+ 	aarch64_be-*)
+diff --git a/gcc/config/aarch64/aarch64-linux.h b/gcc/config/aarch64/aarch64-linux.h
+index 7973268..5ae84bd 100644
+--- a/gcc/config/aarch64/aarch64-linux.h
++++ b/gcc/config/aarch64/aarch64-linux.h
+@@ -22,12 +22,30 @@
+ #define GCC_AARCH64_LINUX_H
+ 
+ #define GLIBC_DYNAMIC_LINKER "/lib/ld-linux-aarch64%{mbig-endian:_be}%{mabi=ilp32:_ilp32}.so.1"
++#define BIONIC_DYNAMIC_LINKER "/system/bin/linker64"
+ 
+ #undef  ASAN_CC1_SPEC
+ #define ASAN_CC1_SPEC "%{%:sanitize(address):-funwind-tables}"
+ 
+ #undef  CC1_SPEC
+-#define CC1_SPEC GNU_USER_TARGET_CC1_SPEC ASAN_CC1_SPEC
++#define CC1_SPEC LINUX_OR_ANDROID_CC(GNU_USER_TARGET_CC1_SPEC,	\
++		GNU_USER_TARGET_CC1_SPEC " " ANDROID_CC1_SPEC("-fPIC")) ASAN_CC1_SPEC
++
++#define CC1PLUS_SPEC \
++	LINUX_OR_ANDROID_CC ("", ANDROID_CC1PLUS_SPEC)
++
++#undef LIB_SPEC
++#define LIB_SPEC \
++	LINUX_OR_ANDROID_LD (GNU_USER_TARGET_LIB_SPEC, \
++		GNU_USER_TARGET_NO_PTHREADS_LIB_SPEC " " ANDROID_LIB_SPEC)
++
++#undef STARTFILE_SPEC
++#define STARTFILE_SPEC \
++	LINUX_OR_ANDROID_LD (GNU_USER_TARGET_STARTFILE_SPEC, ANDROID_STARTFILE_SPEC)
++
++#undef ENDFILE_SPEC
++#define ENDFILE_SPEC \
++	LINUX_OR_ANDROID_LD (GNU_USER_TARGET_ENDFILE_SPEC, ANDROID_ENDFILE_SPEC)
+ 
+ #define CPP_SPEC "%{pthread:-D_REENTRANT}"
+ 
+@@ -57,7 +75,8 @@
+   " %{mfix-cortex-a53-843419:--fix-cortex-a53-843419}"
+ #endif
+ 
+-#define LINK_SPEC LINUX_TARGET_LINK_SPEC \
++#define LINK_SPEC LINUX_OR_ANDROID_LD (LINUX_TARGET_LINK_SPEC,	\
++                  LINUX_TARGET_LINK_SPEC " " ANDROID_LINK_SPEC)	\
+                   CA53_ERR_835769_SPEC \
+                   CA53_ERR_843419_SPEC
+ 
+@@ -73,6 +92,7 @@
+   do						\
+     {						\
+ 	GNU_USER_TARGET_OS_CPP_BUILTINS();	\
++	ANDROID_TARGET_OS_CPP_BUILTINS();	\
+     }						\
+   while (0)
+ 
+diff --git a/libatomic/configure.tgt b/libatomic/configure.tgt
+index 3c1fedd..7c1ebf3 100644
+--- a/libatomic/configure.tgt
++++ b/libatomic/configure.tgt
+@@ -104,6 +104,10 @@ fi
+ 
+ # Other system configury
+ case "${target}" in
++  aarch64*)
++	# ANDROID - This is currently not supported in AArch64.
++	UNSUPPORTED=1
++	;;
+   arm*-*-linux*)
+ 	# OS support for atomic primitives.
+ 	config_path="${config_path} linux/arm posix"
+diff --git a/libgcc/config.host b/libgcc/config.host
+index d558c38..48b1359 100644
+--- a/libgcc/config.host
++++ b/libgcc/config.host
+@@ -325,7 +325,8 @@ aarch64*-*-elf)
+ 	;;
+ aarch64*-*-linux*)
+ 	extra_parts="$extra_parts crtfastmath.o"
+-	md_unwind_header=aarch64/linux-unwind.h
++	# ANDROID - uncomment when sysroot contains sys/ucontext.h
++	#md_unwind_header=aarch64/linux-unwind.h
+ 	tmake_file="${tmake_file} ${cpu_type}/t-aarch64"
+ 	tmake_file="${tmake_file} ${cpu_type}/t-softfp t-softfp t-crtfm"
+ 	;;
+-- 
+2.3.2 (Apple Git-55)
+

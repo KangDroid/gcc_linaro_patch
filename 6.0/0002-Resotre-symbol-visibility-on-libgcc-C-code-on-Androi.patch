@@ -1,0 +1,27 @@
+From c236a189ea48d027d0bfd5e25c7ab477eb935606 Mon Sep 17 00:00:00 2001
+From: KangDroid <hyunwoo286@gmail.com>
+Date: Fri, 8 May 2015 21:23:41 +0100
+Subject: [PATCH 02/23] Resotre-symbol-visibility-on-libgcc-C-code-on-Android
+
+From Linaro 5.1 Patch.
+
+All code from Linaro Team. Thanks to them.
+---
+ libgcc/config/arm/bpabi-lib.h | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/libgcc/config/arm/bpabi-lib.h b/libgcc/config/arm/bpabi-lib.h
+index 56d37c3..a004952 100644
+--- a/libgcc/config/arm/bpabi-lib.h
++++ b/libgcc/config/arm/bpabi-lib.h
+@@ -26,6 +26,7 @@
+ /* Make __aeabi_AEABI_NAME an alias for __GCC_NAME.  */
+ #define RENAME_LIBRARY(GCC_NAME, AEABI_NAME)		\
+   typeof (__##GCC_NAME) __aeabi_##AEABI_NAME \
++    __attribute__((visibility("default"))) \
+     __attribute__((alias ("__" #GCC_NAME)));
+ 
+ /* Give some libgcc functions an additional __aeabi name.  */
+-- 
+2.3.2 (Apple Git-55)
+

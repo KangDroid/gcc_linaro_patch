@@ -1,0 +1,31 @@
+From 26321eea8c1b5e7946a6078889defb2e4f27c974 Mon Sep 17 00:00:00 2001
+From: KangDroid <hyunwoo286@gmail.com>
+Date: Fri, 8 May 2015 21:25:35 +0100
+Subject: [PATCH 05/23] Fix-ARM-GCC-linker-failure-when-using-64-bit-atomic
+
+All code from Linaro 5.1 Patch.
+
+All thanks to Linaro Team
+---
+ libgcc/config/arm/linux-atomic-64bit.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/libgcc/config/arm/linux-atomic-64bit.c b/libgcc/config/arm/linux-atomic-64bit.c
+index cdf713c..30fa56a 100644
+--- a/libgcc/config/arm/linux-atomic-64bit.c
++++ b/libgcc/config/arm/linux-atomic-64bit.c
+@@ -56,7 +56,11 @@ static void __check_for_sync8_kernelhelper (void)
+ 	 for the user - I'm not sure I can rely on much else being
+ 	 available at this point, so do the same as generic-morestack.c
+ 	 write () and abort ().  */
++#if !defined(__ANDROID__)
+       __write (2 /* stderr.  */, err, sizeof (err));
++#else
++      write (2 /* stderr.  */, err, sizeof (err));
++#endif
+       abort ();
+     }
+ };
+-- 
+2.3.2 (Apple Git-55)
+

@@ -1,0 +1,101 @@
+From c84b5968f13da7d7f0db56a0fa9c02b8517a8381 Mon Sep 17 00:00:00 2001
+From: KangDroid <hyunwoo286@gmail.com>
+Date: Fri, 8 May 2015 21:37:23 +0100
+Subject: [PATCH 22/23] isl-0.14
+
+---
+ gcc/graphite-interchange.c       | 4 ++--
+ gcc/graphite-isl-ast-to-gimple.c | 4 ++--
+ gcc/graphite-optimize-isl.c      | 2 +-
+ gcc/graphite-poly.c              | 4 ++--
+ gcc/graphite-sese-to-poly.c      | 4 ++--
+ 5 files changed, 9 insertions(+), 9 deletions(-)
+
+diff --git a/gcc/graphite-interchange.c b/gcc/graphite-interchange.c
+index 8c0d95d..f051a68 100644
+--- a/gcc/graphite-interchange.c
++++ b/gcc/graphite-interchange.c
+@@ -32,11 +32,11 @@ along with GCC; see the file COPYING3.  If not see
+ #include <isl/val.h>
+ 
+ /* Since ISL-0.13, the extern is in val_gmp.h.  */
+-#if !defined(HAVE_ISL_SCHED_CONSTRAINTS_COMPUTE_SCHEDULE) && defined(__cplusplus)
++#if 0 && !defined(HAVE_ISL_SCHED_CONSTRAINTS_COMPUTE_SCHEDULE) && defined(__cplusplus)
+ extern "C" {
+ #endif
+ #include <isl/val_gmp.h>
+-#if !defined(HAVE_ISL_SCHED_CONSTRAINTS_COMPUTE_SCHEDULE) && defined(__cplusplus)
++#if 0 && !defined(HAVE_ISL_SCHED_CONSTRAINTS_COMPUTE_SCHEDULE) && defined(__cplusplus)
+ }
+ #endif
+ #endif
+diff --git a/gcc/graphite-isl-ast-to-gimple.c b/gcc/graphite-isl-ast-to-gimple.c
+index 90ce0c6..143ad2f 100644
+--- a/gcc/graphite-isl-ast-to-gimple.c
++++ b/gcc/graphite-isl-ast-to-gimple.c
+@@ -27,11 +27,11 @@ along with GCC; see the file COPYING3.  If not see
+ #include <isl/ast_build.h>
+ 
+ /* Since ISL-0.13, the extern is in val_gmp.h.  */
+-#if !defined(HAVE_ISL_SCHED_CONSTRAINTS_COMPUTE_SCHEDULE) && defined(__cplusplus)
++#if 0 && !defined(HAVE_ISL_SCHED_CONSTRAINTS_COMPUTE_SCHEDULE) && defined(__cplusplus)
+ extern "C" {
+ #endif
+ #include <isl/val_gmp.h>
+-#if !defined(HAVE_ISL_SCHED_CONSTRAINTS_COMPUTE_SCHEDULE) && defined(__cplusplus)
++#if 0 && !defined(HAVE_ISL_SCHED_CONSTRAINTS_COMPUTE_SCHEDULE) && defined(__cplusplus)
+ }
+ #endif
+ #endif
+diff --git a/gcc/graphite-optimize-isl.c b/gcc/graphite-optimize-isl.c
+index 8bdf744..6f0326d 100644
+--- a/gcc/graphite-optimize-isl.c
++++ b/gcc/graphite-optimize-isl.c
+@@ -467,7 +467,7 @@ getScheduleForBandList (isl_band_list *BandList, isl_union_map **map_sepcl)
+ 	      if (flag_loop_unroll_jam && (i != (ScheduleDimensions - depth)))
+ 		continue;
+ 
+-#ifdef HAVE_ISL_SCHED_CONSTRAINTS_COMPUTE_SCHEDULE
++#if 1 || defined(HAVE_ISL_SCHED_CONSTRAINTS_COMPUTE_SCHEDULE)
+ 	      if (isl_band_member_is_coincident (Band, i))
+ #else
+ 	      if (isl_band_member_is_zero_distance (Band, i))
+diff --git a/gcc/graphite-poly.c b/gcc/graphite-poly.c
+index ae90c29..cb6ed91 100644
+--- a/gcc/graphite-poly.c
++++ b/gcc/graphite-poly.c
+@@ -31,11 +31,11 @@ along with GCC; see the file COPYING3.  If not see
+ #include <isl/val.h>
+ 
+ /* Since ISL-0.13, the extern is in val_gmp.h.  */
+-#if !defined(HAVE_ISL_SCHED_CONSTRAINTS_COMPUTE_SCHEDULE) && defined(__cplusplus)
++#if 0 && !defined(HAVE_ISL_SCHED_CONSTRAINTS_COMPUTE_SCHEDULE) && defined(__cplusplus)
+ extern "C" {
+ #endif
+ #include <isl/val_gmp.h>
+-#if !defined(HAVE_ISL_SCHED_CONSTRAINTS_COMPUTE_SCHEDULE) && defined(__cplusplus)
++#if 0 && !defined(HAVE_ISL_SCHED_CONSTRAINTS_COMPUTE_SCHEDULE) && defined(__cplusplus)
+ }
+ #endif
+ #endif
+diff --git a/gcc/graphite-sese-to-poly.c b/gcc/graphite-sese-to-poly.c
+index 23b63ad..c2b526b 100644
+--- a/gcc/graphite-sese-to-poly.c
++++ b/gcc/graphite-sese-to-poly.c
+@@ -29,11 +29,11 @@ along with GCC; see the file COPYING3.  If not see
+ #include <isl/val.h>
+ 
+ /* Since ISL-0.13, the extern is in val_gmp.h.  */
+-#if !defined(HAVE_ISL_SCHED_CONSTRAINTS_COMPUTE_SCHEDULE) && defined(__cplusplus)
++#if 0 && !defined(HAVE_ISL_SCHED_CONSTRAINTS_COMPUTE_SCHEDULE) && defined(__cplusplus)
+ extern "C" {
+ #endif
+ #include <isl/val_gmp.h>
+-#if !defined(HAVE_ISL_SCHED_CONSTRAINTS_COMPUTE_SCHEDULE) && defined(__cplusplus)
++#if 0 && !defined(HAVE_ISL_SCHED_CONSTRAINTS_COMPUTE_SCHEDULE) && defined(__cplusplus)
+ }
+ #endif
+ #endif
+-- 
+2.3.2 (Apple Git-55)
+

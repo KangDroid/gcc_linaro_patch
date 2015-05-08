@@ -1,0 +1,27 @@
+From e176ba8eb2fcd14d3f5c652c4278a37dbe1a4cf0 Mon Sep 17 00:00:00 2001
+From: KangDroid <hyunwoo286@gmail.com>
+Date: Fri, 8 May 2015 21:37:38 +0100
+Subject: [PATCH 23/23] libgomp-compile-on-android
+
+---
+ libgomp/env.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/libgomp/env.c b/libgomp/env.c
+index 6b5e963..b9201f4 100644
+--- a/libgomp/env.c
++++ b/libgomp/env.c
+@@ -49,6 +49,10 @@
+ #endif
+ #include <limits.h>
+ #include <errno.h>
++#ifdef __ANDROID__
++#include <sys/sysconf.h>
++#define PAGE_SIZE sysconf(_SC_PAGE_SIZE)
++#endif
+ 
+ #ifndef HAVE_STRTOULL
+ # define strtoull(ptr, eptr, base) strtoul (ptr, eptr, base)
+-- 
+2.3.2 (Apple Git-55)
+

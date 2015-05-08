@@ -1,0 +1,42 @@
+From e26f0fba346c86b211bdcb19f64da0897cea1ffd Mon Sep 17 00:00:00 2001
+From: KangDroid <hyunwoo286@gmail.com>
+Date: Fri, 8 May 2015 21:36:55 +0100
+Subject: [PATCH 21/23] disable-__cxa_throw_bad_array_new_length
+
+---
+ gcc/cp/call.c | 3 ++-
+ gcc/cp/init.c | 4 +++-
+ 2 files changed, 5 insertions(+), 2 deletions(-)
+
+diff --git a/gcc/cp/call.c b/gcc/cp/call.c
+index b77f69a..069c385 100644
+--- a/gcc/cp/call.c
++++ b/gcc/cp/call.c
+@@ -4140,7 +4140,8 @@ build_operator_new_call (tree fnname, vec<tree, va_gc> **args,
+   if (size_check != NULL_TREE)
+     {
+       tree errval = TYPE_MAX_VALUE (sizetype);
+-      if (cxx_dialect >= cxx11 && flag_exceptions)
++      /* ANDROID - temporarily disable __cxa_throw_bad_array_new_length call. */
++      if (cxx_dialect >= cxx11 && flag_exceptions && 0)
+ 	errval = throw_bad_array_new_length ();
+       *size = fold_build3 (COND_EXPR, sizetype, size_check,
+ 			   original_size, errval);
+diff --git a/gcc/cp/init.c b/gcc/cp/init.c
+index c41e30c..b103583 100644
+--- a/gcc/cp/init.c
++++ b/gcc/cp/init.c
+@@ -2571,7 +2571,9 @@ build_new_1 (vec<tree, va_gc> **placement, tree type, tree nelts,
+ 	    }
+ 	  /* Perform the overflow check.  */
+ 	  tree errval = TYPE_MAX_VALUE (sizetype);
+-	  if (cxx_dialect >= cxx11 && flag_exceptions)
++          /* ANDROID - temporarily disable __cxa_throw_bad_array_new_length
++             call. */
++	  if (cxx_dialect >= cxx11 && flag_exceptions && 0)
+ 	    errval = throw_bad_array_new_length ();
+ 	  if (outer_nelts_check != NULL_TREE)
+             size = fold_build3 (COND_EXPR, sizetype, outer_nelts_check,
+-- 
+2.3.2 (Apple Git-55)
+

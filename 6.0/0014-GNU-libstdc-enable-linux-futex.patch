@@ -1,0 +1,60 @@
+From 2c1d808008b9616f61513167b59bb86dca6426d4 Mon Sep 17 00:00:00 2001
+From: KangDroid <hyunwoo286@gmail.com>
+Date: Fri, 8 May 2015 21:30:40 +0100
+Subject: [PATCH 14/23] GNU-libstdc-enable-linux-futex
+
+---
+ libstdc++-v3/configure          | 12 ++++++++++++
+ libstdc++-v3/libsupc++/guard.cc |  5 +++++
+ 2 files changed, 17 insertions(+)
+
+diff --git a/libstdc++-v3/configure b/libstdc++-v3/configure
+index 79b8c04..0133323 100755
+--- a/libstdc++-v3/configure
++++ b/libstdc++-v3/configure
+@@ -77356,6 +77356,12 @@ cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+ /* end confdefs.h.  */
+ #include <sys/syscall.h>
+ 	   int lk;
++#if !defined(SYS_gettid)
++#define SYS_gettid __NR_gettid
++#endif
++#if !defined(SYS_futex)
++#define SYS_futex __NR_futex
++#endif
+ int
+ main ()
+ {
+@@ -77414,6 +77420,12 @@ cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+ /* end confdefs.h.  */
+ #include <sys/syscall.h>
+ 	   int lk;
++#if !defined(SYS_gettid)
++#define SYS_gettid __NR_gettid
++#endif
++#if !defined(SYS_futex)
++#define SYS_futex __NR_futex
++#endif
+ int
+ main ()
+ {
+diff --git a/libstdc++-v3/libsupc++/guard.cc b/libstdc++-v3/libsupc++/guard.cc
+index 9f19fd4..e468588 100644
+--- a/libstdc++-v3/libsupc++/guard.cc
++++ b/libstdc++-v3/libsupc++/guard.cc
+@@ -33,7 +33,12 @@
+ #if defined(__GTHREADS) && defined(__GTHREAD_HAS_COND) \
+   && (ATOMIC_INT_LOCK_FREE > 1) && defined(_GLIBCXX_HAVE_LINUX_FUTEX)
+ # include <climits>
++#if defined(__ANDROID__)
++# include <sys/syscall.h>
++# define SYS_futex __NR_futex
++#else
+ # include <syscall.h>
++#endif
+ # include <unistd.h>
+ # define _GLIBCXX_USE_FUTEX
+ # define _GLIBCXX_FUTEX_WAIT 0
+-- 
+2.3.2 (Apple Git-55)
+

@@ -1,0 +1,96 @@
+From 480dfda73cc05dde16611d9bf47651a4b0e18ff9 Mon Sep 17 00:00:00 2001
+From: KangDroid <hyunwoo286@gmail.com>
+Date: Fri, 8 May 2015 21:30:12 +0100
+Subject: [PATCH 13/23] Fix-openmp-support-to-use-libgomp-config-linux
+
+---
+ libgomp/config/linux/futex.h |  4 ++++
+ libgomp/config/linux/proc.c  | 10 +++++++---
+ libgomp/configure            | 12 ++++++++++++
+ 3 files changed, 23 insertions(+), 3 deletions(-)
+
+diff --git a/libgomp/config/linux/futex.h b/libgomp/config/linux/futex.h
+index c99ea37..163a02a 100644
+--- a/libgomp/config/linux/futex.h
++++ b/libgomp/config/linux/futex.h
+@@ -39,6 +39,10 @@
+ 
+ #pragma GCC visibility pop
+ 
++#if !defined(SYS_futex)
++#define SYS_futex __NR_futex
++#endif
++
+ static inline void
+ futex_wait (int *addr, int val)
+ {
+diff --git a/libgomp/config/linux/proc.c b/libgomp/config/linux/proc.c
+index fe20415..b0e216e 100644
+--- a/libgomp/config/linux/proc.c
++++ b/libgomp/config/linux/proc.c
+@@ -245,7 +245,7 @@ sc_nprocessors_actu ()
+ 
+     if (buffer_len < 0)  /* should not happen */ {
+         fprintf(stderr,"Could not find %s: %s\n", file_name, strerror(errno));
+-        return;
++        return 1;
+     }
+ 
+     /* Count the CPU cores, the value may be 0 for single-core CPUs */
+@@ -322,8 +322,10 @@ gomp_init_num_threads (void)
+   free (gomp_cpusetp);
+   gomp_cpusetp = NULL;
+ #endif
+-#ifdef _SC_NPROCESSORS_ONLN
++#if defined(__ANDROID__)
+   gomp_global_icv.nthreads_var = sc_nprocessors_actu ();
++#elif defined(_SC_NPROCESSORS_ONLN)
++  gomp_global_icv.nthreads_var = sysconf (_SC_NPROCESSORS_ONLN);
+ #endif
+ }
+ 
+@@ -353,8 +355,10 @@ get_num_procs (void)
+       return gomp_available_cpus;
+     }
+ #endif
+-#ifdef _SC_NPROCESSORS_ONLN
++#if defined(__ANDROID__)
+   return sc_nprocessors_actu ();
++#elif defined(_SC_NPROCESSORS_ONLN)
++  return sysconf (_SC_NPROCESSORS_ONLN);
+ #else
+   return gomp_icv (false)->nthreads_var;
+ #endif
+diff --git a/libgomp/configure b/libgomp/configure
+index e39787c..2210f69 100755
+--- a/libgomp/configure
++++ b/libgomp/configure
+@@ -15363,6 +15363,12 @@ case "$target" in
+ /* end confdefs.h.  */
+ #include <sys/syscall.h>
+ 	   int lk;
++#if !defined(SYS_gettid)
++#define SYS_gettid __NR_gettid
++#endif
++#if !defined(SYS_futex)
++#define SYS_futex __NR_futex
++#endif
+ int
+ main ()
+ {
+@@ -15415,6 +15421,12 @@ rm -f core conftest.err conftest.$ac_objext \
+ /* end confdefs.h.  */
+ #include <sys/syscall.h>
+ 	   int lk;
++#if !defined(SYS_gettid)
++#define SYS_gettid __NR_gettid
++#endif
++#if !defined(SYS_futex)
++#define SYS_futex __NR_futex
++#endif
+ int
+ main ()
+ {
+-- 
+2.3.2 (Apple Git-55)
+

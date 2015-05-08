@@ -1,0 +1,43 @@
+From 9d1ee019bb62d19123d2edd2cfbf28b0db1a194e Mon Sep 17 00:00:00 2001
+From: KangDroid <hyunwoo286@gmail.com>
+Date: Fri, 8 May 2015 21:22:58 +0100
+Subject: [PATCH 01/23] Restore-visibility-of-libgcc-assembly-code-on-Android
+
+From Linaro 5.1 patch.
+
+All thanks to Linaro Android team
+---
+ libgcc/Makefile.in | 17 ++++++++++++++++-
+ 1 file changed, 16 insertions(+), 1 deletion(-)
+
+diff --git a/libgcc/Makefile.in b/libgcc/Makefile.in
+index 1ab188d..2e37445 100644
+--- a/libgcc/Makefile.in
++++ b/libgcc/Makefile.in
+@@ -377,7 +377,22 @@ endif
+ # overriding that with #pragmas.
+ vis_hide = @vis_hide@
+ 
+-ifneq (,$(vis_hide))
++# Bionic (Android's libc) has a nasty hack to grab __aeabi_uidiv and
++# friends from libgcc.a and re-export them as a workaround for incorrectly
++# built blobs.
++# This hack stops working if the symbols are marked .hidden - so don't do
++# it on Android targets.
++
++hide_symbols=yes
++ifeq (,$(vis_hide))
++  hide_symbols=no
++endif
++ifneq (,$(findstring android,$(target_noncanonical)))
++  hide_symbols=no
++  vis_hide=
++endif
++
++ifneq (no,$(hide_symbols))
+ 
+ # If we have -fvisibility=hidden, then we need to generate hide
+ # lists for object files implemented in assembly.
+-- 
+2.3.2 (Apple Git-55)
+
