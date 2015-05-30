@@ -1,4 +1,4 @@
-From 68959f766a6103c026bc04725482183eefdca7bc Mon Sep 17 00:00:00 2001
+From 48922c35582c835dd918951c1687c6d1ee5acf44 Mon Sep 17 00:00:00 2001
 From: KangDroid <hyunwoo286@gmail.com>
 Date: Fri, 8 May 2015 21:26:13 +0100
 Subject: [PATCH 06/23] Support-Clang-in-C-11

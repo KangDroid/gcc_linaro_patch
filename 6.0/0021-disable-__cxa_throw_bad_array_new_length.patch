@@ -1,4 +1,4 @@
-From e26f0fba346c86b211bdcb19f64da0897cea1ffd Mon Sep 17 00:00:00 2001
+From e9f15eeba700d25d5aa6d33a910b7db194d97a43 Mon Sep 17 00:00:00 2001
 From: KangDroid <hyunwoo286@gmail.com>
 Date: Fri, 8 May 2015 21:36:55 +0100
 Subject: [PATCH 21/23] disable-__cxa_throw_bad_array_new_length
@@ -9,10 +9,10 @@ Subject: [PATCH 21/23] disable-__cxa_throw_bad_array_new_length
  2 files changed, 5 insertions(+), 2 deletions(-)
 
 diff --git a/gcc/cp/call.c b/gcc/cp/call.c
-index b77f69a..069c385 100644
+index bad49f1..a7d09e6 100644
 --- a/gcc/cp/call.c
 +++ b/gcc/cp/call.c
-@@ -4140,7 +4140,8 @@ build_operator_new_call (tree fnname, vec<tree, va_gc> **args,
+@@ -4136,7 +4136,8 @@ build_operator_new_call (tree fnname, vec<tree, va_gc> **args,
    if (size_check != NULL_TREE)
      {
        tree errval = TYPE_MAX_VALUE (sizetype);
@@ -23,7 +23,7 @@ index b77f69a..069c385 100644
        *size = fold_build3 (COND_EXPR, sizetype, size_check,
  			   original_size, errval);
 diff --git a/gcc/cp/init.c b/gcc/cp/init.c
-index c41e30c..b103583 100644
+index 3077407..fc1539c 100644
 --- a/gcc/cp/init.c
 +++ b/gcc/cp/init.c
 @@ -2571,7 +2571,9 @@ build_new_1 (vec<tree, va_gc> **placement, tree type, tree nelts,

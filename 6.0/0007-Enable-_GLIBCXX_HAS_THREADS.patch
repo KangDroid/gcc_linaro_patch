@@ -1,4 +1,4 @@
-From 66964a4b48374d9d74a710820a58cf9b4746a59a Mon Sep 17 00:00:00 2001
+From 90a6b8a6748c24c99ac4fa1a9f8585a83dff629e Mon Sep 17 00:00:00 2001
 From: KangDroid <hyunwoo286@gmail.com>
 Date: Fri, 8 May 2015 21:27:13 +0100
 Subject: [PATCH 07/23] Enable-_GLIBCXX_HAS_THREADS
@@ -8,10 +8,10 @@ Subject: [PATCH 07/23] Enable-_GLIBCXX_HAS_THREADS
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/libstdc++-v3/configure b/libstdc++-v3/configure
-index 90a5192..79b8c04 100755
+index 3654b68..b15f184 100755
 --- a/libstdc++-v3/configure
 +++ b/libstdc++-v3/configure
-@@ -78876,7 +78876,7 @@ $as_echo_n "checking for gthreads library... " >&6; }
+@@ -78729,7 +78729,7 @@ $as_echo_n "checking for gthreads library... " >&6; }
  
    cat confdefs.h - <<_ACEOF >conftest.$ac_ext
  /* end confdefs.h.  */

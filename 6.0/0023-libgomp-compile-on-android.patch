@@ -1,4 +1,4 @@
-From e176ba8eb2fcd14d3f5c652c4278a37dbe1a4cf0 Mon Sep 17 00:00:00 2001
+From 02ef4661fd8640e2717cc5c8389f26c595663975 Mon Sep 17 00:00:00 2001
 From: KangDroid <hyunwoo286@gmail.com>
 Date: Fri, 8 May 2015 21:37:38 +0100
 Subject: [PATCH 23/23] libgomp-compile-on-android

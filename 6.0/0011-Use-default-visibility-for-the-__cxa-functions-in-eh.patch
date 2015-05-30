@@ -1,4 +1,4 @@
-From 94276122687fa10e0d3b1db5b702fcd0436d6111 Mon Sep 17 00:00:00 2001
+From 6c63794c68e93579e33119899068711e500e1969 Mon Sep 17 00:00:00 2001
 From: KangDroid <hyunwoo286@gmail.com>
 Date: Fri, 8 May 2015 21:29:14 +0100
 Subject: [PATCH 11/23] Use-default-visibility-for-the-__cxa-functions-in-eh

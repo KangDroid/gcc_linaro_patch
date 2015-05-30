@@ -1,4 +1,4 @@
-From 9d6ec846e71c8a9292d12a30481522029021e9a0 Mon Sep 17 00:00:00 2001
+From 833d9f6b393ba7a23f496a179df0d666a801d5c7 Mon Sep 17 00:00:00 2001
 From: KangDroid <hyunwoo286@gmail.com>
 Date: Fri, 8 May 2015 21:32:04 +0100
 Subject: [PATCH 17/23] Use-eh_frame_hdr-for-static-linking
@@ -17,10 +17,10 @@ Subject: [PATCH 17/23] Use-eh_frame_hdr-for-static-linking
  10 files changed, 101 insertions(+), 5 deletions(-)
 
 diff --git a/gcc/config.in b/gcc/config.in
-index 231c9ab..2ab9e26 100644
+index daaf906..3e493d9 100644
 --- a/gcc/config.in
 +++ b/gcc/config.in
-@@ -2016,6 +2016,10 @@
+@@ -2022,6 +2022,10 @@
  #undef USE_CYGWIN_LIBSTDCXX_WRAPPERS
  #endif
  
@@ -32,7 +32,7 @@ index 231c9ab..2ab9e26 100644
  /* Define to 1 if the 'long long' type is wider than 'long' but still
     efficiently supported by the host hardware. */
 diff --git a/gcc/config/alpha/elf.h b/gcc/config/alpha/elf.h
-index 50de72e..82d12ab9bd 100644
+index 92bdfa3..fa62349 100644
 --- a/gcc/config/alpha/elf.h
 +++ b/gcc/config/alpha/elf.h
 @@ -168,5 +168,9 @@ extern int alpha_this_gpdisp_sequence_number;
@@ -63,10 +63,10 @@ index 0e8e63e..c05280e 100644
  #ifdef TARGET_LIBC_PROVIDES_SSP
  #define LINK_SSP_SPEC "%{fstack-protector|fstack-protector-all" \
 diff --git a/gcc/config/gnu-user.h b/gcc/config/gnu-user.h
-index 2faa2e5..17ceccf 100644
+index 2fcb55d..2cf74d9 100644
 --- a/gcc/config/gnu-user.h
 +++ b/gcc/config/gnu-user.h
-@@ -94,8 +94,12 @@ see the files COPYING3 and COPYING.RUNTIME respectively.  If not, see
+@@ -97,8 +97,12 @@ see the files COPYING3 and COPYING.RUNTIME respectively.  If not, see
  #define LIB_SPEC GNU_USER_TARGET_LIB_SPEC
  
  #if defined(HAVE_LD_EH_FRAME_HDR)
@@ -80,7 +80,7 @@ index 2faa2e5..17ceccf 100644
  #undef LINK_GCC_C_SEQUENCE_SPEC
  #define LINK_GCC_C_SEQUENCE_SPEC \
 diff --git a/gcc/config/openbsd.h b/gcc/config/openbsd.h
-index 5890078..7584508 100644
+index cf66548..ae5247b 100644
 --- a/gcc/config/openbsd.h
 +++ b/gcc/config/openbsd.h
 @@ -136,8 +136,12 @@ while (0)
@@ -97,7 +97,7 @@ index 5890078..7584508 100644
  #undef LIB_SPEC
  #define LIB_SPEC OBSD_LIB_SPEC
 diff --git a/gcc/config/rs6000/sysv4.h b/gcc/config/rs6000/sysv4.h
-index 9917c2f..27ceb8e 100644
+index 24618e3..327567a 100644
 --- a/gcc/config/rs6000/sysv4.h
 +++ b/gcc/config/rs6000/sysv4.h
 @@ -779,7 +779,11 @@ ENDIAN_SELECT(" -mbig", " -mlittle", DEFAULT_ASM_ENDIAN)
@@ -114,7 +114,7 @@ index 9917c2f..27ceb8e 100644
  
  #define CPP_OS_LINUX_SPEC "-D__unix__ -D__gnu_linux__ -D__linux__ \
 diff --git a/gcc/config/sol2.h b/gcc/config/sol2.h
-index 4dceb16..54db4dd 100644
+index adf6f3b..83bfe55 100644
 --- a/gcc/config/sol2.h
 +++ b/gcc/config/sol2.h
 @@ -296,7 +296,11 @@ along with GCC; see the file COPYING3.  If not see
@@ -130,10 +130,10 @@ index 4dceb16..54db4dd 100644
  #endif
  
 diff --git a/gcc/configure b/gcc/configure
-index b99eb6d..8c399dd 100755
+index f70f2d3..9184454 100755
 --- a/gcc/configure
 +++ b/gcc/configure
-@@ -926,6 +926,7 @@ enable_fix_cortex_a53_835769
+@@ -929,6 +929,7 @@ enable_fix_cortex_a53_835769
  enable_fix_cortex_a53_843419
  with_glibc_version
  enable_gnu_unique_object
@@ -141,7 +141,7 @@ index b99eb6d..8c399dd 100755
  enable_linker_build_id
  with_long_double_128
  with_gc
-@@ -1660,6 +1661,9 @@ Optional Features:
+@@ -1664,6 +1665,9 @@ Optional Features:
    --enable-gnu-unique-object
                            enable the use of the @gnu_unique_object ELF
                            extension on glibc systems
@@ -151,7 +151,7 @@ index b99eb6d..8c399dd 100755
    --enable-linker-build-id
                            compiler will always pass --build-id to linker
    --enable-maintainer-mode
-@@ -27057,6 +27061,38 @@ if test x"$gcc_cv_ld_eh_frame_hdr" = xyes; then
+@@ -27193,6 +27197,38 @@ if test x"$gcc_cv_ld_eh_frame_hdr" = xyes; then
  
  $as_echo "#define HAVE_LD_EH_FRAME_HDR 1" >>confdefs.h
  
@@ -191,10 +191,10 @@ index b99eb6d..8c399dd 100755
  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $gcc_cv_ld_eh_frame_hdr" >&5
  $as_echo "$gcc_cv_ld_eh_frame_hdr" >&6; }
 diff --git a/gcc/configure.ac b/gcc/configure.ac
-index 810725c..9ab0e77 100644
+index b27433e..1029a53 100644
 --- a/gcc/configure.ac
 +++ b/gcc/configure.ac
-@@ -4670,6 +4670,35 @@ GCC_TARGET_TEMPLATE([HAVE_LD_EH_FRAME_HDR])
+@@ -4663,6 +4663,35 @@ GCC_TARGET_TEMPLATE([HAVE_LD_EH_FRAME_HDR])
  if test x"$gcc_cv_ld_eh_frame_hdr" = xyes; then
  	AC_DEFINE(HAVE_LD_EH_FRAME_HDR, 1,
  [Define if your linker supports .eh_frame_hdr.])

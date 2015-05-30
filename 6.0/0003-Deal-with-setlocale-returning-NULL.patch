@@ -1,4 +1,4 @@
-From 49384f025c915f310dd93b3b98f0b55213d69366 Mon Sep 17 00:00:00 2001
+From 24c791cd834e797ddd185261a5bdde32a018cbde Mon Sep 17 00:00:00 2001
 From: KangDroid <hyunwoo286@gmail.com>
 Date: Fri, 8 May 2015 21:24:20 +0100
 Subject: [PATCH 03/23] Deal-with-setlocale-returning-NULL

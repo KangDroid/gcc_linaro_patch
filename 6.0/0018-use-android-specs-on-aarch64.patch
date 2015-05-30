@@ -1,4 +1,4 @@
-From 4046ba0694b42643e9b7acade38f1d1d624b57db Mon Sep 17 00:00:00 2001
+From 152a27b7f4ba7c1143740347e3d7caa6423f3ceb Mon Sep 17 00:00:00 2001
 From: KangDroid <hyunwoo286@gmail.com>
 Date: Fri, 8 May 2015 21:35:54 +0100
 Subject: [PATCH 18/23] use-android-specs-on-aarch64
@@ -20,10 +20,10 @@ patching file libgcc/config.host
  4 files changed, 30 insertions(+), 4 deletions(-)
 
 diff --git a/gcc/config.gcc b/gcc/config.gcc
-index e993e5d..3a6db98 100644
+index 1fcc290..854bfe0 100644
 --- a/gcc/config.gcc
 +++ b/gcc/config.gcc
-@@ -915,8 +915,9 @@ aarch64*-*-elf)
+@@ -918,8 +918,9 @@ aarch64*-*-elf)
  	TM_MULTILIB_CONFIG=`echo $TM_MULTILIB_CONFIG | sed 's/^,//'`
  	;;
  aarch64*-*-linux*)
@@ -35,16 +35,18 @@ index e993e5d..3a6db98 100644
  	case $target in
  	aarch64_be-*)
 diff --git a/gcc/config/aarch64/aarch64-linux.h b/gcc/config/aarch64/aarch64-linux.h
-index 7973268..5ae84bd 100644
+index 1600a32..7b8ec0f 100644
 --- a/gcc/config/aarch64/aarch64-linux.h
 +++ b/gcc/config/aarch64/aarch64-linux.h
-@@ -22,12 +22,30 @@
+@@ -22,6 +22,7 @@
  #define GCC_AARCH64_LINUX_H
  
  #define GLIBC_DYNAMIC_LINKER "/lib/ld-linux-aarch64%{mbig-endian:_be}%{mabi=ilp32:_ilp32}.so.1"
 +#define BIONIC_DYNAMIC_LINKER "/system/bin/linker64"
  
- #undef  ASAN_CC1_SPEC
+ #undef MUSL_DYNAMIC_LINKER
+ #define MUSL_DYNAMIC_LINKER "/lib/ld-musl-aarch64%{mbig-endian:_be}%{mabi=ilp32:_ilp32}.so.1"
+@@ -30,7 +31,24 @@
  #define ASAN_CC1_SPEC "%{%:sanitize(address):-funwind-tables}"
  
  #undef  CC1_SPEC
@@ -70,7 +72,7 @@ index 7973268..5ae84bd 100644
  
  #define CPP_SPEC "%{pthread:-D_REENTRANT}"
  
-@@ -57,7 +75,8 @@
+@@ -60,7 +78,8 @@
    " %{mfix-cortex-a53-843419:--fix-cortex-a53-843419}"
  #endif
  
@@ -80,7 +82,7 @@ index 7973268..5ae84bd 100644
                    CA53_ERR_835769_SPEC \
                    CA53_ERR_843419_SPEC
  
-@@ -73,6 +92,7 @@
+@@ -76,6 +95,7 @@
    do						\
      {						\
  	GNU_USER_TARGET_OS_CPP_BUILTINS();	\
@@ -104,10 +106,10 @@ index 3c1fedd..7c1ebf3 100644
  	# OS support for atomic primitives.
  	config_path="${config_path} linux/arm posix"
 diff --git a/libgcc/config.host b/libgcc/config.host
-index d558c38..48b1359 100644
+index 46666df..b36c8d7 100644
 --- a/libgcc/config.host
 +++ b/libgcc/config.host
-@@ -325,7 +325,8 @@ aarch64*-*-elf)
+@@ -327,7 +327,8 @@ aarch64*-*-elf)
  	;;
  aarch64*-*-linux*)
  	extra_parts="$extra_parts crtfastmath.o"

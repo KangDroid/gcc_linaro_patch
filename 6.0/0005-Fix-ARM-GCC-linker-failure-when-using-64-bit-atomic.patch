@@ -1,4 +1,4 @@
-From 26321eea8c1b5e7946a6078889defb2e4f27c974 Mon Sep 17 00:00:00 2001
+From aec6cefb67bf43ee59f21bd2350b116745ee0e65 Mon Sep 17 00:00:00 2001
 From: KangDroid <hyunwoo286@gmail.com>
 Date: Fri, 8 May 2015 21:25:35 +0100
 Subject: [PATCH 05/23] Fix-ARM-GCC-linker-failure-when-using-64-bit-atomic

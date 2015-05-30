@@ -1,4 +1,4 @@
-From 4dcb30cc737e61182bb7f8af40948ba824ddb515 Mon Sep 17 00:00:00 2001
+From 6ace257d521548c445ebaff4190dc1091220946a Mon Sep 17 00:00:00 2001
 From: KangDroid <hyunwoo286@gmail.com>
 Date: Fri, 8 May 2015 21:36:42 +0100
 Subject: [PATCH 20/23] config-defaults
@@ -11,10 +11,10 @@ Subject: [PATCH 20/23] config-defaults
  4 files changed, 12 insertions(+), 5 deletions(-)
 
 diff --git a/gcc/config/arm/linux-eabi.h b/gcc/config/arm/linux-eabi.h
-index 2cf3ca7..02ddbfd 100644
+index d51376f..5fdae12 100644
 --- a/gcc/config/arm/linux-eabi.h
 +++ b/gcc/config/arm/linux-eabi.h
-@@ -91,7 +91,7 @@
+@@ -108,7 +108,7 @@
  #define CC1_SPEC							\
    LINUX_OR_ANDROID_CC (GNU_USER_TARGET_CC1_SPEC " " ASAN_CC1_SPEC,	\
  		       GNU_USER_TARGET_CC1_SPEC " " ASAN_CC1_SPEC " "	\

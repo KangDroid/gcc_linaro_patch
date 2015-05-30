@@ -1,4 +1,4 @@
-From b3dd6db863235bea3319a8fc30d2221da0652e66 Mon Sep 17 00:00:00 2001
+From 4dfc1a537c2d2cd632498c2c435bdc6397bfa49c Mon Sep 17 00:00:00 2001
 From: KangDroid <hyunwoo286@gmail.com>
 Date: Fri, 8 May 2015 21:31:00 +0100
 Subject: [PATCH 15/23] Add-fuse-ld-mcld
@@ -8,10 +8,10 @@ Subject: [PATCH 15/23] Add-fuse-ld-mcld
  1 file changed, 5 insertions(+), 1 deletion(-)
 
 diff --git a/gcc/common.opt b/gcc/common.opt
-index 51833c1..074d2ca 100644
+index 6e15af2..84b158b 100644
 --- a/gcc/common.opt
 +++ b/gcc/common.opt
-@@ -2405,9 +2405,13 @@ Common Driver Negative(fuse-ld=gold)
+@@ -2417,9 +2417,13 @@ Common Driver Negative(fuse-ld=gold)
  Use the bfd linker instead of the default linker
  
  fuse-ld=gold

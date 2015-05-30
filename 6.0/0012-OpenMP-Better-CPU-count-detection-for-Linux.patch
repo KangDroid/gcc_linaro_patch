@@ -1,4 +1,4 @@
-From 873b44cd4d799efbf4649963b08d0fe5c84ff2e1 Mon Sep 17 00:00:00 2001
+From 2e3350283825831a8c130fc7c703e50d9999f715 Mon Sep 17 00:00:00 2001
 From: KangDroid <hyunwoo286@gmail.com>
 Date: Fri, 8 May 2015 21:29:48 +0100
 Subject: [PATCH 12/23] OpenMP-Better-CPU-count-detection-for-Linux

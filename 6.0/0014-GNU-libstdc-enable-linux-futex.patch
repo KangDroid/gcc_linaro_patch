@@ -1,4 +1,4 @@
-From 2c1d808008b9616f61513167b59bb86dca6426d4 Mon Sep 17 00:00:00 2001
+From 54f2494f4c84f7a428bd88e0ffcaadc06b5cbdd3 Mon Sep 17 00:00:00 2001
 From: KangDroid <hyunwoo286@gmail.com>
 Date: Fri, 8 May 2015 21:30:40 +0100
 Subject: [PATCH 14/23] GNU-libstdc-enable-linux-futex
@@ -9,10 +9,10 @@ Subject: [PATCH 14/23] GNU-libstdc-enable-linux-futex
  2 files changed, 17 insertions(+)
 
 diff --git a/libstdc++-v3/configure b/libstdc++-v3/configure
-index 79b8c04..0133323 100755
+index b15f184..0453978 100755
 --- a/libstdc++-v3/configure
 +++ b/libstdc++-v3/configure
-@@ -77356,6 +77356,12 @@ cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+@@ -77209,6 +77209,12 @@ cat confdefs.h - <<_ACEOF >conftest.$ac_ext
  /* end confdefs.h.  */
  #include <sys/syscall.h>
  	   int lk;
@@ -25,7 +25,7 @@ index 79b8c04..0133323 100755
  int
  main ()
  {
-@@ -77414,6 +77420,12 @@ cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+@@ -77267,6 +77273,12 @@ cat confdefs.h - <<_ACEOF >conftest.$ac_ext
  /* end confdefs.h.  */
  #include <sys/syscall.h>
  	   int lk;

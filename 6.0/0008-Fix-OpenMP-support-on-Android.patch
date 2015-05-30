@@ -1,4 +1,4 @@
-From 9ae3f94209c647f414347e96f7e95fa81a31a559 Mon Sep 17 00:00:00 2001
+From d90518134f59a62af9895eef50a0681373b2cbe3 Mon Sep 17 00:00:00 2001
 From: KangDroid <hyunwoo286@gmail.com>
 Date: Fri, 8 May 2015 21:27:29 +0100
 Subject: [PATCH 08/23] Fix-OpenMP-support-on-Android

@@ -1,4 +1,4 @@
-From c236a189ea48d027d0bfd5e25c7ab477eb935606 Mon Sep 17 00:00:00 2001
+From b214317135304d0f759953656ea566e2b801c418 Mon Sep 17 00:00:00 2001
 From: KangDroid <hyunwoo286@gmail.com>
 Date: Fri, 8 May 2015 21:23:41 +0100
 Subject: [PATCH 02/23] Resotre-symbol-visibility-on-libgcc-C-code-on-Android

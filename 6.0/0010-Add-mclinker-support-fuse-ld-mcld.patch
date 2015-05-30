@@ -1,4 +1,4 @@
-From 1c096d5b2c40408e8ecf9434426a650a6759b017 Mon Sep 17 00:00:00 2001
+From 1565086c231cbe5f9eb9754b20a888c3e2839f7a Mon Sep 17 00:00:00 2001
 From: KangDroid <hyunwoo286@gmail.com>
 Date: Fri, 8 May 2015 21:28:58 +0100
 Subject: [PATCH 10/23] Add-mclinker-support-fuse-ld-mcld
@@ -50,10 +50,10 @@ index b53e151..8179a8d 100644
  		  ld2--;
  		}
 diff --git a/gcc/doc/invoke.texi b/gcc/doc/invoke.texi
-index 9169731..ae1abf7 100644
+index e25bd62..771e84f 100644
 --- a/gcc/doc/invoke.texi
 +++ b/gcc/doc/invoke.texi
-@@ -11153,6 +11153,10 @@ Use the @command{bfd} linker instead of the default linker.
+@@ -11204,6 +11204,10 @@ Use the @command{bfd} linker instead of the default linker.
  @opindex fuse-ld=gold
  Use the @command{gold} linker instead of the default linker.
  
@@ -65,7 +65,7 @@ index 9169731..ae1abf7 100644
  @item -l@var{library}
  @itemx -l @var{library}
 diff --git a/gcc/gcc.c b/gcc/gcc.c
-index d956c36..a2788b7 100644
+index a8e9c8c..65e0388 100644
 --- a/gcc/gcc.c
 +++ b/gcc/gcc.c
 @@ -540,7 +540,7 @@ proper position among the other output files.  */

@@ -1,4 +1,4 @@
-From 480dfda73cc05dde16611d9bf47651a4b0e18ff9 Mon Sep 17 00:00:00 2001
+From 3274181fc88a34d4cb37ec608b20b9470d53b82a Mon Sep 17 00:00:00 2001
 From: KangDroid <hyunwoo286@gmail.com>
 Date: Fri, 8 May 2015 21:30:12 +0100
 Subject: [PATCH 13/23] Fix-openmp-support-to-use-libgomp-config-linux
@@ -62,10 +62,10 @@ index fe20415..b0e216e 100644
    return gomp_icv (false)->nthreads_var;
  #endif
 diff --git a/libgomp/configure b/libgomp/configure
-index e39787c..2210f69 100755
+index 8b5e210..d5d4078 100755
 --- a/libgomp/configure
 +++ b/libgomp/configure
-@@ -15363,6 +15363,12 @@ case "$target" in
+@@ -15366,6 +15366,12 @@ case "$target" in
  /* end confdefs.h.  */
  #include <sys/syscall.h>
  	   int lk;
@@ -78,7 +78,7 @@ index e39787c..2210f69 100755
  int
  main ()
  {
-@@ -15415,6 +15421,12 @@ rm -f core conftest.err conftest.$ac_objext \
+@@ -15418,6 +15424,12 @@ rm -f core conftest.err conftest.$ac_objext \
  /* end confdefs.h.  */
  #include <sys/syscall.h>
  	   int lk;
